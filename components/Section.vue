@@ -2,15 +2,22 @@
 const props = defineProps<{
     title: string;
 }>();
+
+const slots = useSlots();
 </script>
 
 <template>
     <div class="py-12">
         <div class="container mx-auto max-w-screen-xl px-5 md:px-10">
-            <h1 class="font-bold text-4xl text-center italic">{{ title }}</h1>
-            <div class="w-full h-2 bg-green mt-4 mb-8 rounded-md" />
+            <div v-if="title" class="mb-8">
+                <h1 class="text-4xl md:text-6xl font-bold italic text-black/90">{{ title }}</h1>
+                <div class="h-2 w-full bg-green rounded-md mt-2"></div>
+            </div>
             <div>
                 <slot />
+            </div>
+            <div v-if="slots.tail" class="mt-8">
+                <slot name="tail" />
             </div>
         </div>
     </div>

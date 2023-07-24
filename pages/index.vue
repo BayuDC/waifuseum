@@ -9,9 +9,11 @@ const { data } = await useMyFetch<{ albums: Album[] }>('/albums?count=12');
                 <AlbumCard :album="album" />
             </li>
         </ul>
-        <div class="flex justify-center mt-6">
-            <Button to="/albums">View More</Button>
-        </div>
+        <template #tail>
+            <div class="flex justify-center">
+                <Button to="/albums">View More</Button>
+            </div>
+        </template>
     </Section>
 </template>
 <style scoped></style>
