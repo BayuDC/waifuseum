@@ -9,6 +9,7 @@
     "format": "prettier -w ."
   },
   "devDependencies": {
+    "@iconify/vue": "^4.1.1",
     "@nuxtjs/robots": "^3.0.0",
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@types/node": "^18.17.0",
