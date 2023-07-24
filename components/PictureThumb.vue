@@ -5,12 +5,16 @@ import { useLazyload } from 'vue3-lazyload';
 const props = defineProps<{
     url: string;
 }>();
+const emit = defineEmits<{
+    (e: 'loaded'): void;
+}>();
 
 const ready = ref(false);
 const element = useLazyload(toRef(props, 'url'), {
     lifecycle: {
         loaded: () => {
             ready.value = true;
+            emit('loaded');
         },
     },
     observerOptions: {
@@ -25,7 +29,7 @@ const element = useLazyload(toRef(props, 'url'), {
             <Icon icon="line-md:loading-twotone-loop" :width="54" :height="54" />
         </div>
         <img
-            class="w-full h-full object-cover object-top transition duration-300"
+            class="w-full h-full object-cover object-top transition group-hover:scale-105"
             :class="[ready ? 'opacity-100' : 'opacity-0 blur']"
             ref="element"
         />
