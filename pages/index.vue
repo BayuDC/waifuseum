@@ -1,5 +1,7 @@
 <script lang="ts" setup></script>
 
-<template></template>
+<template>
+    <Section title="Recent Albums">Content here</Section>
+</template>
 
 <style scoped></style>
