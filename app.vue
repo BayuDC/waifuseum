@@ -10,7 +10,9 @@
             />
         </Head>
         <Body class="bg-white text-black">
-            <h1 class="font-bold italic">Waifuseum</h1>
+            <NuxtLayout>
+                <NuxtPage />
+            </NuxtLayout>
         </Body>
     </Html>
 </template>
