@@ -11,7 +11,6 @@ const slots = useSlots();
         <div class="container mx-auto max-w-screen-xl px-5 md:px-10">
             <div v-if="title" class="mb-8">
                 <h1 class="text-4xl md:text-6xl font-bold italic text-black/90">{{ title }}</h1>
-                <div class="h-2 w-full bg-green rounded-md mt-2"></div>
             </div>
             <div>
                 <slot />

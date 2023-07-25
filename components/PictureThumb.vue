@@ -24,7 +24,7 @@ const element = useLazyload(toRef(props, 'url'), {
 </script>
 
 <template>
-    <div class="overflow-hidden rounded-md aspect-square bg-green/20">
+    <div class="overflow-hidden rounded-md aspect-square bg-green/20 border-green border-[4px]">
         <div v-if="!ready" class="text-green h-full flex items-center justify-center">
             <Icon icon="line-md:loading-twotone-loop" :width="54" :height="54" />
         </div>

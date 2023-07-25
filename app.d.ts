@@ -3,10 +3,12 @@ declare global {
         id: string;
         name: string;
         slug: string;
+        alias: string;
         private: boolean;
         community: boolean;
         picturesCount: number;
         pictures: Picture[];
+        tags: Tag[];
         createdBy: User;
         createdAt: string;
         updatedAt: string;
@@ -27,6 +29,13 @@ declare global {
     interface User {
         id: string;
         name: string;
+    }
+
+    interface Tag {
+        id: string;
+        name: string;
+        alias: string;
+        slug: string;
     }
 }
 
