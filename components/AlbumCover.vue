@@ -4,7 +4,10 @@ const url = props.urls[Math.floor(Math.random() * 3)];
 </script>
 
 <template>
-    <PictureThumb :url="url" class="" />
+    <div class="relative">
+        <PictureThumb :url="url" class="" />
+        <slot />
+    </div>
 </template>
 
 <style></style>

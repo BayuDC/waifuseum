@@ -6,7 +6,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="bg-green font-bold text-black p-2 flex rounded-lg absolute top-3 left-3 items-center">
+    <div class="bg-green font-bold text-black p-2 flex rounded-lg items-center">
         <span class="px-1">
             {{ count }}
         </span>
