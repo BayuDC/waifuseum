@@ -50,9 +50,7 @@ onUnmounted(stop);
         </template>
         <Box>
             <Grid ref="list">
-                <li v-for="picture in pictures" :key="picture.id">
-                    <PictureThumb :url="picture.urls.thumbnail" />
-                </li>
+                <PictureItem v-for="picture in pictures" :key="picture.id" :picture="picture" />
             </Grid>
             <Loading v-if="ready && pending" class="mt-6 mb-4" />
         </Box>

@@ -4,10 +4,6 @@ const NuxtLink = resolveComponent('NuxtLink');
 </script>
 
 <template>
-    <!-- <NuxtLink
-        :to="`/albums/${album.id}`"
-        class="block p-4 bg-[#FFFFFF] rounded-2xl border-black border-4 h-full shadow-[4px_4px_0px_0px_black] hover:bg-green/20 transition group"
-    > -->
     <Box :is="NuxtLink" :to="`/albums/${album.id}`" class="hover:bg-green/20 transition group">
         <AlbumCover :urls="album.pictures.map((p) => p.urls.thumbnail)">
             <AlbumBadge :count="album.picturesCount" class="absolute -top-1 -right-1" />
@@ -24,8 +20,6 @@ const NuxtLink = resolveComponent('NuxtLink');
             <p v-if="album.alias" class="text-black/90 font-bold text-sm italic mt-0.5">{{ album.alias }}</p>
         </div>
     </Box>
-
-    <!-- </NuxtLink> -->
 </template>
 
 <style scoped></style>
