@@ -1,18 +1,19 @@
 <script lang="ts" setup>
 const target = ref<HTMLElement | null>(null);
 
-useMotion(target, {
+const { apply } = useMotion(target, {
     initial: {
         opacity: 0,
-        y: 100,
+        scale: 0,
     },
-    visibleOnce: {
+});
+useAppear(target, () => {
+    const delay = Math.random() * 300;
+    apply({
         opacity: 100,
-        y: 0,
-        transition: {
-            delay: Math.random() * 200,
-        },
-    },
+        scale: 1,
+        transition: { delay },
+    });
 });
 </script>
 

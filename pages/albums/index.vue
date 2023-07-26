@@ -26,7 +26,7 @@ const { stop } = useIntersectionObserver(
     ([{ isIntersecting }]) => {
         if (isIntersecting) page.value++;
     },
-    { rootMargin: '300px' },
+    { rootMargin: '400px' },
 );
 
 until(data)
@@ -40,7 +40,7 @@ onUnmounted(stop);
 <template>
     <Section title="All Albums">
         <ul class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4" ref="list">
-            <AlbumItem v-for="album in albums" :key="album.id">
+            <AlbumItem v-for="(album, i) in albums" :key="album.id">
                 <AlbumCard :album="album" />
             </AlbumItem>
         </ul>
