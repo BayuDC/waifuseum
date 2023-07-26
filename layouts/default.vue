@@ -1,8 +1,8 @@
 <script lang="ts" setup></script>
 
 <template>
-    <Header />
+    <Header class="sticky top-0 z-50" />
     <slot />
 </template>
 
-<style scoped></style>
+<style></style>

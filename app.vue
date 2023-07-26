@@ -1,5 +1,11 @@
+<script lang="ts" setup>
+useNuxtApp().hook('page:finish', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
 <template>
-    <Html>
+    <Html class="scroll-smooth">
         <Head>
             <Title>Waifuseum</Title>
             <Link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,8 +17,20 @@
         </Head>
         <Body class="bg-white text-black">
             <NuxtLayout>
+                <NuxtLoadingIndicator :height="4" :color="false" class="bg-green" />
                 <NuxtPage />
             </NuxtLayout>
         </Body>
     </Html>
 </template>
+
+<style>
+.page-enter-active,
+.page-leave-active {
+    @apply transition;
+}
+.page-enter-from,
+.page-leave-to {
+    @apply opacity-0 blur;
+}
+</style>
