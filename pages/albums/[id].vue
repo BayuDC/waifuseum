@@ -45,7 +45,7 @@ onUnmounted(stop);
     <Section v-if="data" :title="data.album.name" :subtitle="data.album.alias">
         <template #head>
             <div class="flex flex-wrap gap-2">
-                <AlbumTag v-for="tag in data.album.tags" :tag="tag" :key="tag.id" />
+                <Badge v-for="tag in data.album.tags" :key="tag.id">#{{ tag.slug }}</Badge>
             </div>
         </template>
         <Box>

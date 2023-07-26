@@ -1,4 +1,10 @@
 <script lang="ts" setup>
+const NuxtLink = resolveComponent('NuxtLink');
+
+const props = defineProps<{
+    album: Album;
+}>();
+
 const target = ref<HTMLElement | null>(null);
 
 const { apply } = useMotion(target, {
@@ -15,11 +21,17 @@ useAppear(target, () => {
         transition: { delay },
     });
 });
+
+const thumb = props.album.pictures[Math.floor(Math.random() * props.album.pictures.length)].urls.thumbnail;
+const tag = props.album.tags[0]?.slug;
 </script>
 
 <template>
     <li ref="target" class="opacity-0">
-        <slot />
+        <Box :is="NuxtLink" :to="`/albums/${album.id}`" class="hover:bg-green/10 transition group">
+            <AlbumCover :url="thumb" :tag="tag" :count="album.picturesCount" />
+            <AlbumInfo v-bind="{ name: album.name, alias: album.alias }" class="mt-2" />
+        </Box>
     </li>
 </template>
 

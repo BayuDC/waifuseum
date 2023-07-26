@@ -5,9 +5,7 @@ const { data } = await useMyFetch<{ albums: Album[] }>('/albums?count=12');
 <template>
     <Section title="Recent Albums">
         <Grid>
-            <AlbumItem v-for="(album, i) in data?.albums" :key="album.id">
-                <AlbumCard :album="album" />
-            </AlbumItem>
+            <AlbumItem v-for="(album, i) in data?.albums" :key="album.id" :album="album" />
         </Grid>
         <template #tail>
             <div class="flex justify-center">

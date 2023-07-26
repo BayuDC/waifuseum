@@ -9,7 +9,7 @@ const props = defineProps<{
     <div class="relative group">
         <PictureThumb :url="url" />
         <Badge
-            class="absolute -bottom-0.5 -right-0.5 opacity-100 group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:opacity-100 transition"
+            class="absolute -bottom-0.5 -right-0.5 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition"
         >
             {{ date }}
         </Badge>
