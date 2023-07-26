@@ -8,8 +8,7 @@ const { data, error, pending } = await useMyFetch<{ album: Album; pictures: Pict
 
 if (error.value) throw showError({ statusCode: 404, statusMessage: 'Album Not Found' });
 
-const list = ref<HTMLElement | null>(null);
-const target = ref<HTMLElement | null>(null);
+const list = ref<{ element: HTMLElement } | null>(null);
 
 const pictures = ref<Picture[]>([]);
 
@@ -23,27 +22,21 @@ watchImmediate(data, () => {
 });
 
 watch(pictures, () => {
-    nextTick(updateTarget);
+    nextTick(() => {
+        setup(list.value!.element);
+    });
 });
 
-function updateTarget() {
-    target.value = list.value!.lastElementChild as HTMLElement;
-}
-
-const { stop } = useIntersectionObserver(
-    target,
-    ([{ isIntersecting }]) => {
-        if (isIntersecting) page.value++;
-    },
-    { rootMargin: '400px' },
-);
+const { setup, stop } = useInfinite(() => {
+    page.value++;
+});
 
 until(data)
     .toMatch((v) => !v?.pictures.length)
     .then(stop);
 
 onMounted(() => {
-    updateTarget();
+    setup(list.value!.element);
 });
 onUnmounted(stop);
 </script>
@@ -55,14 +48,14 @@ onUnmounted(stop);
                 <AlbumTag v-for="tag in data.album.tags" :tag="tag" :key="tag.id" />
             </div>
         </template>
-        <div class="block p-4 bg-[#FFFFFF] rounded-2xl border-black border-4 h-full shadow-[4px_4px_0px_0px_black]">
-            <ul class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4" ref="list">
+        <Box>
+            <Grid ref="list">
                 <li v-for="picture in pictures" :key="picture.id">
                     <PictureThumb :url="picture.urls.thumbnail" />
                 </li>
-            </ul>
+            </Grid>
             <Loading v-if="ready && pending" class="mt-6 mb-4" />
-        </div>
+        </Box>
     </Section>
 </template>
 
