@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const props = defineProps<{
-    title: string;
-    subtitle: string;
+    title?: string;
+    subtitle?: string;
 }>();
 
 const slots = useSlots();
