@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 const props = defineProps<{
     title: string;
+    subtitle: string;
 }>();
 
 const slots = useSlots();
@@ -10,7 +11,12 @@ const slots = useSlots();
     <div class="py-12">
         <div class="container mx-auto max-w-screen-xl px-5 md:px-10">
             <div v-if="title" class="mb-8">
+                <p v-if="subtitle" class="text-xl md:text-2xl font-bold italic text-black/90">{{ subtitle }}</p>
                 <h1 class="text-4xl md:text-6xl font-bold italic text-black/90">{{ title }}</h1>
+
+                <div v-if="slots.head" class="mt-2">
+                    <slot name="head" />
+                </div>
             </div>
             <div>
                 <slot />

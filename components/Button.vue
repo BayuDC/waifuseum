@@ -4,7 +4,7 @@ import { Icon } from '@iconify/vue';
 const props = defineProps<{
     to: string;
     icon?: string;
-    ignoreHideText: boolean;
+    ignoreHideText?: boolean;
 }>();
 </script>
 
