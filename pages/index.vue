@@ -11,7 +11,7 @@ const { data } = await useMyFetch<{ albums: Album[] }>('/albums?count=12');
         </ul>
         <template #tail>
             <div class="flex justify-center">
-                <Button to="/albums">View More</Button>
+                <Button to="/albums" icon="pepicons:triangle-right-filled" ignore-hide-text>View More</Button>
             </div>
         </template>
     </Section>

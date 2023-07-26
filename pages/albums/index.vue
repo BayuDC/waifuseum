@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const page = ref(1);
 const albums = ref<Album[]>([]);
-const { data } = await useMyFetch<{ albums: Album[] }>('/albums', {
+const { data, pending } = await useMyFetch<{ albums: Album[] }>('/albums', {
     query: { page, count: 12 },
 });
 
@@ -44,6 +44,9 @@ onUnmounted(stop);
                 <AlbumCard :album="album" />
             </AlbumItem>
         </ul>
+        <template #tail v-if="pending">
+            <Loading />
+        </template>
     </Section>
 </template>
 
