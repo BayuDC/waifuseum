@@ -64,7 +64,7 @@ function resetPicture() {
             <Loading v-if="ready && pending" class="mt-6 mb-4" />
         </Box>
         <Transition name="page">
-            <PictureStory v-if="picture" :picture="picture" @close="resetPicture" />
+            <PictureStory v-if="picture" :picture="picture" :key="picture.id" @close="resetPicture" />
         </Transition>
     </Section>
 </template>

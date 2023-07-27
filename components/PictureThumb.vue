@@ -12,12 +12,8 @@ const error = ref(!props.url);
 const element = error
     ? useLazyload(toRef(props, 'url') as Ref<string>, {
           lifecycle: {
-              loaded: () => {
-                  ready.value = true;
-              },
-              error: () => {
-                  error.value = true;
-              },
+              loaded: () => (ready.value = true),
+              error: () => (error.value = true),
           },
           observerOptions: {
               rootMargin: '200px',
