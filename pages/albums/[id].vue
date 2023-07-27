@@ -52,6 +52,7 @@ onUnmounted(stop);
             <Grid ref="list">
                 <PictureItem v-for="picture in pictures" :key="picture.id" :picture="picture" />
             </Grid>
+            <div v-if="!pictures.length" class="font-bold text-2xl text-center text-green">Still nothing here!</div>
             <Loading v-if="ready && pending" class="mt-6 mb-4" />
         </Box>
     </Section>

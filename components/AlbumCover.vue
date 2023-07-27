@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-const props = defineProps<{ url: string; tag: string; count: number }>();
+const props = defineProps<{
+    url: string | undefined;
+    tag: string | undefined;
+    count: number;
+}>();
 </script>
 
 <template>
