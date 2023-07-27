@@ -14,18 +14,18 @@ const source = toRef(props.picture.urls, 'standard');
 
 const element = useLazyload(source, {
     lifecycle: {
-        loading: () => console.log('start'),
         loaded: () => (ready.value = true),
     },
 });
 
 onMounted(() => {
     document.body.classList.add('overflow-hidden');
-    console.log(isMobile().any);
 });
 onUnmounted(() => {
     document.body.classList.remove('overflow-hidden');
 });
+
+const date = usePrettyDate(props.picture.createdAt);
 </script>
 
 <template>
@@ -40,9 +40,17 @@ onUnmounted(() => {
                 <Icon icon="line-md:loading-twotone-loop" :width="72" :height="72" />
             </div>
         </Container>
-        <div class="bg-gradient-to-b from-black/40 to-black/0 absolute top-0 w-full pb-10">
-            <Container class="h-full px-5 md:px-10 py-4">
-                <Button icon="ic:round-close" class="ml-auto" @click="emit('close')">Close</Button>
+        <div class="bg-gradient-to-b from-black/60 to-black/0 absolute top-0 w-full pb-16">
+            <Container class="h-full p-5 md:px-10 md:py-5">
+                <Button icon="ic:close" class="ml-auto hidden md:flex" @click="emit('close')">Close</Button>
+            </Container>
+        </div>
+        <div class="bg-gradient-to-t from-black/60 to-black/0 absolute bottom-0 w-full pt-16">
+            <Container class="h-full p-5 md:px-10 md:py-5 flex items-center gap-2">
+                <p class="text-white font-medium mr-auto hidden md:inline">Uploaded at {{ date }}</p>
+                <Button icon="ic:round-open-in-new" :to="picture.source" target="”_blank”">Source</Button>
+                <Button icon="ic:round-download" :to="picture.url" download target="_blank">Download</Button>
+                <Button icon="ic:close" class="ml-auto md:hidden" @click="emit('close')">Close</Button>
             </Container>
         </div>
     </div>

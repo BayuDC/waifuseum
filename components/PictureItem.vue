@@ -10,11 +10,7 @@ const target = ref<HTMLElement | null>(null);
 
 usePopMotion(target, { opacity: 0, y: 100 }, { opacity: 100, y: 0 });
 
-const date = new Date(props.picture.createdAt).toLocaleString('id-ID', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-});
+const date = usePrettyDate(props.picture.createdAt);
 </script>
 
 <template>
