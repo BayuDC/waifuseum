@@ -2,6 +2,9 @@
 const props = defineProps<{
     picture: Picture;
 }>();
+const emit = defineEmits<{
+    (e: 'click', picture: Picture): void;
+}>();
 
 const target = ref<HTMLElement | null>(null);
 
@@ -15,7 +18,7 @@ const date = new Date(props.picture.createdAt).toLocaleString('id-ID', {
 </script>
 
 <template>
-    <li ref="target" class="opacity-0">
+    <li ref="target" class="opacity-0 cursor-pointer" tabindex="0" @click="emit('click', picture)">
         <PictureCover :url="picture.urls.thumbnail" :date="date" />
     </li>
 </template>

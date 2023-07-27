@@ -27,7 +27,7 @@ useNuxtApp().hook('page:finish', () => {
 <style>
 .page-enter-active,
 .page-leave-active {
-    @apply transition;
+    @apply transition duration-300;
 }
 .page-enter-from,
 .page-leave-to {

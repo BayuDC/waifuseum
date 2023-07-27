@@ -11,6 +11,7 @@ if (error.value) throw showError({ statusCode: 404, statusMessage: 'Album Not Fo
 const list = ref<{ element: HTMLElement } | null>(null);
 
 const pictures = ref<Picture[]>([]);
+const picture = useState<Picture | null>('picture', () => null);
 
 watchOnce(data, () => {
     ready.value = true;
@@ -39,6 +40,13 @@ onMounted(() => {
     setup(list.value!.element);
 });
 onUnmounted(stop);
+
+function setPicture(p: Picture) {
+    picture.value = p;
+}
+function resetPicture() {
+    picture.value = null;
+}
 </script>
 
 <template>
@@ -50,11 +58,14 @@ onUnmounted(stop);
         </template>
         <Box>
             <Grid ref="list">
-                <PictureItem v-for="picture in pictures" :key="picture.id" :picture="picture" />
+                <PictureItem v-for="picture in pictures" :key="picture.id" :picture="picture" @click="setPicture" />
             </Grid>
             <div v-if="!pictures.length" class="font-bold text-2xl text-center text-green">Still nothing here!</div>
             <Loading v-if="ready && pending" class="mt-6 mb-4" />
         </Box>
+        <Transition name="page">
+            <PictureStory v-if="picture" :picture="picture" @close="resetPicture" />
+        </Transition>
     </Section>
 </template>
 

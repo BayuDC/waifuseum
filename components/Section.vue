@@ -9,7 +9,7 @@ const slots = useSlots();
 
 <template>
     <div class="py-12">
-        <div class="container mx-auto max-w-screen-xl px-5 md:px-10">
+        <Container class="px-5 md:px-10">
             <div v-if="title" class="mb-8">
                 <p v-if="subtitle" class="text-xl md:text-2xl font-bold italic text-black/90">{{ subtitle }}</p>
                 <h1 class="text-4xl md:text-6xl font-bold italic text-black/90">{{ title }}</h1>
@@ -24,7 +24,7 @@ const slots = useSlots();
             <div v-if="slots.tail" class="mt-8">
                 <slot name="tail" />
             </div>
-        </div>
+        </Container>
     </div>
 </template>
 

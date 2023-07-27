@@ -2,7 +2,7 @@
 
 <template>
     <header class="bg-black">
-        <div class="container mx-auto max-w-screen-xl px-5 md:px-10">
+        <Container class="px-5 md:px-10">
             <div class="flex items-center justify-between h-20">
                 <h1 class="font-bold text-green italic text-[32px]">
                     <NuxtLink to="/">Waifuseum</NuxtLink>
@@ -11,7 +11,7 @@
                     <Button to="/upload" icon="ic:round-upload">Upload</Button>
                 </div>
             </div>
-        </div>
+        </Container>
     </header>
 </template>
 
