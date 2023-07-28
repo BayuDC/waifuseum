@@ -1,63 +1,43 @@
-# Nuxt 3 Minimal Starter
+# Waifuseum
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+![Banner](https://media.discordapp.net/attachments/946013429200723989/1134386198467592223/banner_waifuseum_compressed.png)
 
-## Setup
+Art source: https://www.pixiv.net/en/artworks/92424854
 
-Make sure to install the dependencies:
+The project is a simple website that contains a collection of cute anime girl pictures.
+Yeah, pretty basic website. The interesting part is that all of the image files on this website
+are hosted by Discord using [WaifuseumAPI](https://github.com/BayuDC/waifuseum-api).
+I'm so poor I can't afford a storage service bucket, which is why I use Discord instead.
+If you try to copy an image address, you will get a url starting with `https://media.discordapp.net/...`.
+Discord, if you see this, please don't sue me.
 
-```bash
-# npm
-npm install
+Try it now: https://waifuseum.bayudc.fun
 
-# pnpm
-pnpm install
+## 🧩 Tech Stacks
 
-# yarn
-yarn install
+-   Nuxt 3
+-   Tailwind
+-   Typescript
+-   [And more](./package.json)
+
+## 🖼️ Screenshots
+
+![Screenshot 1](https://media.discordapp.net/attachments/946013429200723989/1134498683677855775/image.png)
+![Screenshot 2](https://media.discordapp.net/attachments/946013429200723989/1134498763042467910/image.png)
+![Screenshot 3](https://media.discordapp.net/attachments/946013429200723989/1134498966671724714/image.png)
+
+Rushia so cute 😭😭😭
+
+## 🚧 Dev Setup
+
+Just like regular nuxt project.
+
+```
+$ pnpm i
+$ pnpm dev
 ```
 
-## Development Server
+## ❤️ Thanks to
 
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+-   [Vercel](https://vercel.com), for the free severless cloud
+-   [Discord](https://discord.com), for hosting my waifu picture collection
