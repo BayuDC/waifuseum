@@ -80,6 +80,7 @@ const NavButton = defineComponent(
                 <Button icon="ic:close" class="ml-auto md:hidden" @click="emit('close')">Close</Button>
             </Container>
         </div>
+        <slot />
     </div>
 </template>
 

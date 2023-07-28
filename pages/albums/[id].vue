@@ -88,7 +88,9 @@ onUnmounted(stop);
                 @close="index = -1"
                 @prev="index--"
                 @next="index++"
-            />
+            >
+                <PictureProgress :total="data.album.picturesCount" :current="index" />
+            </PictureStory>
         </Transition>
     </Section>
 </template>
