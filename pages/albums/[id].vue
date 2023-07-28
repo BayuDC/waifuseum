@@ -33,13 +33,30 @@ watch(pictures, () => {
     });
 });
 
+const {
+    pause,
+    resume,
+    stop: unwatch,
+} = watchPausable(index, () => {
+    if (pictures.value.length - index.value < 5) {
+        page.value++;
+    }
+});
+
+watch(pending, () => {
+    pending.value ? pause() : resume();
+});
+
 const { setup, stop } = useInfinite(() => {
     page.value++;
 });
 
 until(data)
     .toMatch((v) => !v?.pictures.length)
-    .then(stop);
+    .then(() => {
+        unwatch();
+        stop();
+    });
 
 onMounted(() => {
     setup(list.value!.element);
