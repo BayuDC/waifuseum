@@ -10,4 +10,5 @@ export default defineAppConfig({
         width: 1280,
         height: 640,
     },
+    discordUrl: 'https://discord.gg/8sSfCNCXHW',
 });
