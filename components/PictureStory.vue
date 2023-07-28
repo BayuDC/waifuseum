@@ -57,7 +57,7 @@ const NavButton = defineComponent(
                 class="object-contain w-full h-full transition"
                 :class="[ready ? 'opacity-100' : 'opacity-0 blur']"
             />
-            <div v-if="!ready" class="flex justify-center items-center absolute inset-0 text-green">
+            <div v-if="!ready" class="flex justify-center items-center absolute inset-0 text-white">
                 <Icon icon="line-md:loading-twotone-loop" :width="72" :height="72" />
             </div>
         </Container>
