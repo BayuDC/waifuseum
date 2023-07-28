@@ -1,13 +1,36 @@
 <script lang="ts" setup>
-useNuxtApp().hook('page:finish', () => {
+const appConfig = useAppConfig();
+const nuxtApp = useNuxtApp();
+
+nuxtApp.hook('page:finish', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+useSeoMeta({
+    title: appConfig.name,
+    description: appConfig.description,
+    author: appConfig.author.name,
+    themeColor: appConfig.color,
+    ogType: 'website',
+    ogSiteName: appConfig.name,
+    ogUrl: appConfig.url,
+    ogTitle: appConfig.name,
+    ogDescription: appConfig.description,
+    ogImage: appConfig.banner.url,
+    ogImageType: appConfig.banner.type,
+    ogImageHeight: appConfig.banner.height,
+    ogImageWidth: appConfig.banner.width,
+    twitterImage: appConfig.banner.url,
+    twitterCard: 'summary_large_image',
 });
 </script>
 
 <template>
     <Html class="scroll-smooth">
         <Head>
-            <Title>Waifuseum</Title>
+            <Title>{{ appConfig.name }} | {{ appConfig.description }}</Title>
+            <Link rel="canonical" :href="appConfig.url" />
+
             <Link rel="preconnect" href="https://fonts.googleapis.com" />
             <Link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
             <Link
