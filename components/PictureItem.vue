@@ -3,7 +3,7 @@ const props = defineProps<{
     picture: Picture;
 }>();
 const emit = defineEmits<{
-    (e: 'click', picture: Picture): void;
+    (e: 'click'): void;
 }>();
 
 const target = ref<HTMLElement | null>(null);
@@ -14,7 +14,7 @@ const date = usePrettyDate(props.picture.createdAt);
 </script>
 
 <template>
-    <li ref="target" class="opacity-0 cursor-pointer" tabindex="0" @click="emit('click', picture)">
+    <li ref="target" class="opacity-0 cursor-pointer" tabindex="0" @click="emit('click')">
         <PictureCover :url="picture.urls.thumbnail" :date="date" />
     </li>
 </template>

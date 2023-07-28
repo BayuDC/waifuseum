@@ -10,8 +10,13 @@ if (error.value) throw showError({ statusCode: 404, statusMessage: 'Album Not Fo
 
 const list = ref<{ element: HTMLElement } | null>(null);
 
+const index = ref(-1);
+
 const pictures = ref<Picture[]>([]);
-const picture = useState<Picture | null>('picture', () => null);
+const picture = computed<Picture | null>(() => {
+    if (index.value < 0 || index.value >= pictures.value.length) return null;
+    return pictures.value[index.value];
+});
 
 watchOnce(data, () => {
     ready.value = true;
@@ -40,13 +45,6 @@ onMounted(() => {
     setup(list.value!.element);
 });
 onUnmounted(stop);
-
-function setPicture(p: Picture) {
-    picture.value = p;
-}
-function resetPicture() {
-    picture.value = null;
-}
 </script>
 
 <template>
@@ -58,13 +56,22 @@ function resetPicture() {
         </template>
         <Box>
             <Grid ref="list">
-                <PictureItem v-for="picture in pictures" :key="picture.id" :picture="picture" @click="setPicture" />
+                <PictureItem v-for="(picture, i) in pictures" :key="picture.id" :picture="picture" @click="index = i" />
             </Grid>
             <div v-if="!pictures.length" class="font-bold text-2xl text-center text-green">Still nothing here!</div>
             <Loading v-if="ready && pending" class="mt-6 mb-4" />
         </Box>
         <Transition name="page">
-            <PictureStory v-if="picture" :picture="picture" :key="picture.id" @close="resetPicture" />
+            <PictureStory
+                v-if="picture"
+                key="iloveyou"
+                :picture="picture"
+                :show-prev="index > 0"
+                :show-next="index < pictures.length - 1"
+                @close="index = -1"
+                @prev="index--"
+                @next="index++"
+            />
         </Transition>
     </Section>
 </template>
