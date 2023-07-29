@@ -1,9 +1,9 @@
 <script lang="ts" setup></script>
 
 <template>
-    <Section title="Upload Picture" no-padding>
+    <Section title="Create Tag" no-padding>
         <Box>
-            <div class="">Still nothing here!</div>
+            <div class="">Coming soon!</div>
         </Box>
     </Section>
 </template>
