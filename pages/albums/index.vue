@@ -33,14 +33,16 @@ onUnmounted(stop);
 </script>
 
 <template>
-    <Section title="All Albums">
-        <Grid ref="list">
-            <AlbumItem v-for="(album, i) in albums" :key="album.id" :album="album" />
-        </Grid>
-        <template #tail v-if="pending">
-            <Loading />
-        </template>
-    </Section>
+    <Main>
+        <Section title="All Albums">
+            <Grid ref="list">
+                <AlbumItem v-for="(album, i) in albums" :key="album.id" :album="album" />
+            </Grid>
+            <template #tail v-if="pending">
+                <Loading />
+            </template>
+        </Section>
+    </Main>
 </template>
 
 <style scoped></style>

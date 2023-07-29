@@ -1,17 +1,41 @@
 <script lang="ts" setup>
-const { data } = await useMyFetch<{ albums: Album[] }>('/albums?count=12');
+const appConfig = useAppConfig();
+
+const { data: recentAlbums } = await useMyFetch<Album[]>('/albums?count=12', {
+    transform: (data: any) => data.albums,
+});
+
+const featuredAlbums = ref<(Album | null)[]>([]);
+
+featuredAlbums.value = await Promise.all(
+    appConfig.featuredAlbums.map(async (albumId, i) => {
+        const { data: album } = await useMyFetch<Album>(`/albums/${albumId}`, {
+            transform: (data: any) => data.album,
+            key: 'featured' + i,
+        });
+
+        return album.value;
+    }),
+);
 </script>
 
 <template>
-    <Section title="Recent Albums">
-        <Grid>
-            <AlbumItem v-for="(album, i) in data?.albums" :key="album.id" :album="album" />
-        </Grid>
-        <template #tail>
-            <div class="flex justify-center">
-                <Button to="/albums" icon="pepicons:triangle-right-filled" ignore-hide-text>View More</Button>
-            </div>
-        </template>
-    </Section>
+    <Main>
+        <Section title="Featured">
+            <Grid>
+                <AlbumItem v-for="(album, i) in featuredAlbums" :key="album?.id" :album="album" />
+            </Grid>
+        </Section>
+        <Section title="Recent Albums">
+            <Grid>
+                <AlbumItem v-for="(album, i) in recentAlbums" :key="album.id" :album="album" />
+            </Grid>
+            <template #tail>
+                <div class="flex justify-center">
+                    <Button to="/albums" icon="pepicons:triangle-right-filled" ignore-hide-text>View More</Button>
+                </div>
+            </template>
+        </Section>
+    </Main>
 </template>
 <style scoped></style>
