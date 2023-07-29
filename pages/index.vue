@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const appConfig = useAppConfig();
 
-const { data: recentAlbums } = await useMyFetch<Album[]>('/albums?count=12', {
+const { data: recentAlbums } = await useLiteFetch<Album[]>('/albums?count=12', {
     transform: (data: any) => data.albums,
 });
 
@@ -9,7 +9,7 @@ const featuredAlbums = ref<(Album | null)[]>([]);
 
 featuredAlbums.value = await Promise.all(
     appConfig.featuredAlbums.map(async (albumId, i) => {
-        const { data: album } = await useMyFetch<Album>(`/albums/${albumId}`, {
+        const { data: album } = await useLiteFetch<Album>(`/albums/${albumId}`, {
             transform: (data: any) => data.album,
             key: 'featured' + i,
         });

@@ -2,7 +2,7 @@
 const id = useRoute().params.id;
 const page = ref(1);
 const ready = ref(false);
-const { data, error, pending } = await useMyFetch<{ album: Album; pictures: Picture[] }>(`/albums/${id}/pictures`, {
+const { data, error, pending } = await useLiteFetch<{ album: Album; pictures: Picture[] }>(`/albums/${id}/pictures`, {
     query: { count: 12, page },
 });
 

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const page = ref(1);
 const albums = ref<Album[]>([]);
-const { data, pending } = await useMyFetch<{ albums: Album[] }>('/albums', {
+const { data, pending } = await useLiteFetch<{ albums: Album[] }>('/albums', {
     query: { page, count: 12 },
 });
 
