@@ -1,5 +1,10 @@
 <script lang="ts" setup>
 definePageMeta({ layout: 'empty' });
+
+const auth = reactive({
+    email: '',
+    password: '',
+});
 </script>
 
 <template>
@@ -7,11 +12,13 @@ definePageMeta({ layout: 'empty' });
         <Main>
             <Section title="Waifuseum" center-head>
                 <Box>
-                    <div class="flex flex-col gap-2 mb-4">
-                        <InputText label="Username" />
-                        <InputText />
-                    </div>
-                    <Button icon="ic:round-login" class="ml-auto">Login</Button>
+                    <form action="">
+                        <div class="flex flex-col gap-1 mb-4">
+                            <InputText label="Email" v-model:value="auth.email" />
+                            <InputText label="Password" v-model:value="auth.password" password />
+                        </div>
+                        <Button icon="ic:round-login" class="ml-auto">Login</Button>
+                    </form>
                 </Box>
                 <div class="text-center mt-8 font-bold flex flex-wrap justify-center">
                     <NuxtLink class="hover:underline">Login with Discord</NuxtLink>
