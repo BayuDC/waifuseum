@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-throw showError({
-    statusCode: 425,
-    statusMessage: 'Coming Soon',
-});
+navigateTo('/login', { replace: true });
+// throw showError({
+//     statusCode: 425,
+//     statusMessage: 'Coming Soon',
+// });
 </script>
