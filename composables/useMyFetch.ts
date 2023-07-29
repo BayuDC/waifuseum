@@ -10,3 +10,12 @@ export const useLiteFetch: useFetchType = (path, options?) => {
         ...options,
     });
 };
+export const useMainFetch: useFetchType = (path, options?) => {
+    const config = useRuntimeConfig();
+
+    return useFetch(path, {
+        baseURL: config.public.apiMainUrl,
+        credentials: 'include',
+        ...options,
+    });
+};
