@@ -35,7 +35,7 @@ async function onSubmit() {
             <Form @submit="onSubmit" v-bind="{ message, loading }">
                 <div class="grid md:grid-cols-2 gap-y-1 gap-x-3 mb-4">
                     <InputText v-model:value="body.fileUrl" label="File URL" required class="md:col-span-2" />
-                    <InputText v-model:value="body.album" label="Album" required />
+                    <InputAlbum v-model:album="body.album" />
                     <InputText v-model:value="body.source" label="Source" />
                 </div>
             </Form>
