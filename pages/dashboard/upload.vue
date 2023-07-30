@@ -33,10 +33,16 @@ async function onSubmit() {
     <Section title="Upload Picture" no-padding>
         <Box>
             <Form @submit="onSubmit" v-bind="{ message, loading }">
-                <div class="grid md:grid-cols-2 gap-y-1 gap-x-3 mb-4">
-                    <InputText v-model:value="body.fileUrl" label="File URL" required class="md:col-span-2" />
-                    <InputAlbum v-model:album="body.album" />
-                    <InputText v-model:value="body.source" label="Source" />
+                <div class="grid md:grid-cols-2 gap-x-3 mb-4">
+                    <InputText
+                        label="File URL"
+                        class="md:col-span-2"
+                        v-model:value="body.fileUrl"
+                        :error="error?.data.details.file"
+                        required
+                    />
+                    <InputAlbum v-model:album="body.album" :error="error?.data.details.album" />
+                    <InputText v-model:value="body.source" :error="error?.data.details.source" label="Source" />
                 </div>
             </Form>
         </Box>

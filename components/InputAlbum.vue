@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 const props = defineProps<{
     album: string;
+    error?: string;
 }>();
 
 const emit = defineEmits<{
@@ -37,10 +38,14 @@ function pickSuggestion() {
 
 <template>
     <div class="relative">
-        <InputText v-bind="{ label: 'Album', required: true }" v-model:value="album" @keydown.tab="pickSuggestion" />
+        <InputText
+            v-bind="{ label: 'Album', required: true, error }"
+            v-model:value="album"
+            @keydown.tab="pickSuggestion"
+        />
         <span
             v-show="pending || (suggestion && suggestion != album)"
-            class="absolute bottom-5 right-2 italic font-medium text-black px-2 rounded-md bg-green/100 cursor-pointer transition"
+            class="absolute top-12 right-2 italic font-medium text-black px-2 rounded-md bg-green/100 cursor-pointer transition"
             @click="pickSuggestion"
             >{{ pending ? '...' : suggestion }}</span
         >
