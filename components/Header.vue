@@ -1,4 +1,10 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const route = useRoute();
+
+const isDashboard = computed(() => {
+    return route.path.startsWith('/dashboard');
+});
+</script>
 
 <template>
     <header class="bg-black">
@@ -8,7 +14,10 @@
                     <NuxtLink to="/">Waifuseum</NuxtLink>
                 </h1>
                 <div>
-                    <Button to="/dashboard/upload" icon="ic:round-upload">Upload</Button>
+                    <Transition name="page" mode="out-in">
+                        <Button v-if="isDashboard" to="/" icon="ic:round-home">Home</Button>
+                        <Button v-else to="/dashboard/upload" icon="ic:round-upload">Upload</Button>
+                    </Transition>
                 </div>
             </div>
         </Container>

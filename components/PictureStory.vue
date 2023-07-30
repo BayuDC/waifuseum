@@ -35,7 +35,10 @@ onUnmounted(() => {
     document.body.classList.remove('overflow-hidden');
 });
 
-const date = usePrettyDate(props.picture.createdAt);
+const date = computed(() => {
+    const date = props.picture.createdAt;
+    return `${usePrettyDate(date)} ${usePrettyTime(date)}`;
+});
 
 const NavButton = defineComponent(
     (props) => {
