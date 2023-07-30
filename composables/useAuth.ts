@@ -9,6 +9,12 @@ export default function useAuth() {
     return useState<AuthUser | null>('auth', () => null);
 }
 
+export function isAuth() {
+    const auth = useAuth();
+
+    return auth.value != null;
+}
+
 export async function login(): Promise<boolean> {
     const auth = useAuth();
 
