@@ -21,6 +21,7 @@ const { error, execute } = await useMainFetch('/auth/login', {
 async function handleLogin() {
     if (loading.value) return;
 
+    error.value = null;
     loading.value = true;
     await execute();
     loading.value = false;
@@ -43,11 +44,11 @@ async function handleLogin() {
                         </div>
                         <div class="flex items-center justify-end gap-4">
                             <Transition name="page" mode="out-in">
-                                <span v-show="error" class="font-semibold text-pink">{{ error?.data.message }}</span>
+                                <span v-show="error" class="font-semibold text-pink italic">{{
+                                    error?.data.message
+                                }}</span>
                             </Transition>
-                            <Button
-                                :icon="!loading ? 'ic:round-login' : 'line-md:loading-twotone-loop'"
-                                ignore-hide-text
+                            <Button :icon="loading ? 'line-md:loading-twotone-loop' : ''" ignore-hide-text
                                 >Login</Button
                             >
                         </div>

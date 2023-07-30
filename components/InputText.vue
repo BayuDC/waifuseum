@@ -25,14 +25,14 @@ const value = computed({
 
 <template>
     <div class="flex flex-col py-2">
-        <label :for="id" class="font-bold text-lg text-black/90">
+        <label :for="id" class="font-bold text-lg text-black/90 italic">
             {{ label }}
             <span class="text-pink" v-show="required">*</span>
         </label>
         <input
             :type="type"
             :id="id"
-            class="border-[4px] font-medium rounded-md p-2"
+            class="border-[4px] font-medium rounded-md p-2 italic"
             :class="[value ? 'border-green/40 bg-green/10 outline-green' : 'border-gray/40 bg-gray/10 outline-gray']"
             v-model="value"
             :required="required"
