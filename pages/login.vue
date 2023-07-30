@@ -4,29 +4,30 @@ definePageMeta({
     middleware: ['auth-guest'],
 });
 
-const loading = ref(false);
-
 const body = reactive({
     email: '',
     password: '',
 });
 
-const { error, execute } = await useMainFetch('/auth/login', {
+const { data, error, execute } = await useMainFetch<{ message: string }>('/auth/login', {
     method: 'post',
     body,
     watch: false,
     immediate: false,
 });
+const { message, loading, beforeSubmit, afterSubmit } = useForm();
 
-async function handleLogin() {
+async function onSubmit() {
     if (loading.value) return;
 
-    error.value = null;
-    loading.value = true;
+    beforeSubmit();
     await execute();
-    loading.value = false;
+    afterSubmit();
 
-    if (!error.value) {
+    if (error.value) {
+        message.error = error.value.data.message;
+    } else {
+        message.success = data.value!.message;
         navigateTo('/dashboard/upload', { replace: true });
     }
 }
@@ -37,22 +38,12 @@ async function handleLogin() {
         <Main>
             <Section title="Waifuseum" center-head>
                 <Box>
-                    <form @submit.prevent="handleLogin">
+                    <Form @submit="onSubmit" button-text="Login" v-bind="{ message, loading }">
                         <div class="flex flex-col gap-1 mb-4">
                             <InputText label="Email" v-model:value="body.email" required />
                             <InputText label="Password" v-model:value="body.password" required password />
                         </div>
-                        <div class="flex items-center justify-end gap-4">
-                            <Transition name="page" mode="out-in">
-                                <span v-show="error" class="font-semibold text-pink italic">{{
-                                    error?.data.message
-                                }}</span>
-                            </Transition>
-                            <Button :icon="loading ? 'line-md:loading-twotone-loop' : ''" ignore-hide-text
-                                >Login</Button
-                            >
-                        </div>
-                    </form>
+                    </Form>
                 </Box>
                 <div class="text-center mt-8 font-bold flex flex-wrap justify-center">
                     <NuxtLink class="hover:underline" to="/login/discord">Login with Discord</NuxtLink>

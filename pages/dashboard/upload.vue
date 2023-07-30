@@ -15,6 +15,8 @@ const { data, error, execute } = await useMainFetch<{ picture: Picture }>('/pict
 const { message, loading, beforeSubmit, afterSubmit } = useForm();
 
 async function onSubmit() {
+    if (loading.value) return;
+
     beforeSubmit();
     await execute();
     afterSubmit();
