@@ -8,7 +8,7 @@
                     <NuxtLink to="/">Waifuseum</NuxtLink>
                 </h1>
                 <div>
-                    <Button to="/upload" icon="ic:round-upload">Upload</Button>
+                    <Button to="/dashboard/upload" icon="ic:round-upload">Upload</Button>
                 </div>
             </div>
         </Container>

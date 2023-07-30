@@ -17,6 +17,7 @@
     "@vueuse/motion": "^2.0.0",
     "@vueuse/nuxt": "^10.2.1",
     "ismobilejs": "^1.1.1",
+    "nanoid": "^4.0.2",
     "nuxt": "^3.6.5",
     "prettier": "^3.0.0",
     "vue3-lazyload": "^0.3.6"

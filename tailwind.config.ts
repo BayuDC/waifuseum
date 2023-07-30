@@ -10,6 +10,7 @@ export default {
             white: '#f6f8ff',
             green: '#23ce6b',
             gray: '#606677',
+            pink: '#FF52A2',
         },
     },
     content: [],
