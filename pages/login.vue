@@ -45,7 +45,11 @@ async function handleLogin() {
                             <Transition name="page" mode="out-in">
                                 <span v-show="error" class="font-semibold text-pink">{{ error?.data.message }}</span>
                             </Transition>
-                            <Button :icon="!loading ? 'ic:round-login' : 'line-md:loading-twotone-loop'">Login</Button>
+                            <Button
+                                :icon="!loading ? 'ic:round-login' : 'line-md:loading-twotone-loop'"
+                                ignore-hide-text
+                                >Login</Button
+                            >
                         </div>
                     </form>
                 </Box>
