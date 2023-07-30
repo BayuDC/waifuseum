@@ -1,5 +1,8 @@
 <script lang="ts" setup>
-definePageMeta({ layout: 'empty' });
+definePageMeta({
+    layout: 'empty',
+    middleware: ['auth-guest'],
+});
 
 const loading = ref(false);
 
@@ -23,7 +26,7 @@ async function handleLogin() {
     loading.value = false;
 
     if (!error.value) {
-        navigateTo('/', { replace: true });
+        navigateTo('/dashboard/upload', { replace: true });
     }
 }
 </script>

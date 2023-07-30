@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+definePageMeta({
+    middleware: ['auth'],
+});
+
 const routes = [
     { text: 'Upload Picture', dest: '/dashboard/upload' },
     { text: 'Create Album', dest: '/dashboard/create-album' },
