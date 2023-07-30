@@ -8,7 +8,7 @@ const slots = useSlots();
 </script>
 
 <template>
-    <div class="py-12">
+    <div class="">
         <Container class="px-5 md:px-10">
             <div v-if="title" class="mb-8">
                 <p v-if="subtitle" class="text-xl md:text-2xl font-bold italic text-black/90">{{ subtitle }}</p>

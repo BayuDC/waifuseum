@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const page = ref(1);
 const albums = ref<Album[]>([]);
-const { data, pending } = await useMyFetch<{ albums: Album[] }>('/albums', {
+const { data, pending } = await useLiteFetch<{ albums: Album[] }>('/albums', {
     query: { page, count: 12 },
 });
 
@@ -33,14 +33,16 @@ onUnmounted(stop);
 </script>
 
 <template>
-    <Section title="All Albums">
-        <Grid ref="list">
-            <AlbumItem v-for="(album, i) in albums" :key="album.id" :album="album" />
-        </Grid>
-        <template #tail v-if="pending">
-            <Loading />
-        </template>
-    </Section>
+    <Main>
+        <Section title="All Albums">
+            <Grid ref="list">
+                <AlbumItem v-for="(album, i) in albums" :key="album.id" :album="album" />
+            </Grid>
+            <template #tail v-if="pending">
+                <Loading />
+            </template>
+        </Section>
+    </Main>
 </template>
 
 <style scoped></style>

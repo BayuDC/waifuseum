@@ -2,13 +2,11 @@ import { useFetch } from '#app';
 
 type useFetchType = typeof useFetch;
 
-const useMyFetch: useFetchType = (path, options?) => {
+export const useLiteFetch: useFetchType = (path, options?) => {
     const config = useRuntimeConfig();
 
     return useFetch(path, {
-        baseURL: config.public.apiUrl,
+        baseURL: config.public.apiLiteUrl,
         ...options,
     });
 };
-
-export default useMyFetch;
