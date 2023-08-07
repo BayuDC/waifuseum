@@ -29,6 +29,7 @@ const picture = pictures.value?.length
                         :key="picture.id"
                         :picture="picture"
                         @click="index = i"
+                        show-album
                     />
                 </Grid>
             </Box>
@@ -48,13 +49,13 @@ const picture = pictures.value?.length
                 </PictureStory>
             </Transition>
 
-            <template #tail>
+            <!-- <template #tail>
                 <div class="flex justify-end">
                     <Button to="/pictures/today" icon="pepicons:triangle-right-filled" ignore-hide-text>
                         View More
                     </Button>
                 </div>
-            </template>
+            </template> -->
         </Section>
         <Section title="Recent Albums">
             <Grid>

@@ -84,6 +84,7 @@ onUnmounted(stop);
                         :key="picture.id"
                         :picture="picture"
                         @click="index = i"
+                        show-date
                     />
                 </Grid>
                 <div v-if="!pictures.length" class="font-bold text-2xl text-center text-green">Still nothing here!</div>

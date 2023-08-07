@@ -22,6 +22,7 @@ declare global {
             standard: string;
             original: string;
         };
+        album?: Album;
         source: string;
         createdAt: string;
         updatedAt: string;
