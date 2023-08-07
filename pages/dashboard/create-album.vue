@@ -5,6 +5,7 @@ const body = reactive({
     slug: '',
     tags: [''],
     community: true,
+    description: '',
 });
 const unwatch = watch(toRef(body, 'name'), () => {
     body.slug = body.name.toLocaleLowerCase().replaceAll(' ', '-');
@@ -22,6 +23,7 @@ const { message, loading, beforeSubmit, afterSubmit } = useForm();
 async function onSubmit() {
     if (loading.value) return;
 
+    body.description = body.name;
     beforeSubmit();
     await execute();
     afterSubmit();

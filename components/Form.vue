@@ -23,14 +23,16 @@ const emit = defineEmits<{
         <slot />
 
         <div class="flex items-center justify-end gap-4">
-            <Transition name="page" mode="out-in">
-                <span v-if="message.error" class="font-semibold text-pink truncate italic">
-                    {{ message.error }}
-                </span>
-                <span v-else-if="message.success" class="font-semibold text-green truncate italic">
-                    {{ message.success }}
-                </span>
-            </Transition>
+            <div class="grid">
+                <Transition name="page" mode="out-in">
+                    <span v-if="message.error" class="font-semibold text-pink truncate italic">
+                        {{ message.error }}
+                    </span>
+                    <span v-else-if="message.success" class="font-semibold text-green truncate italic">
+                        {{ message.success }}
+                    </span>
+                </Transition>
+            </div>
             <Button :icon="loading ? 'line-md:loading-twotone-loop' : ''" ignore-hide-text>
                 {{ buttonText }}
             </Button>
