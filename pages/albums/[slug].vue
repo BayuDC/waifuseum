@@ -1,12 +1,17 @@
 <script lang="ts" setup>
-const id = useRoute().params.id;
+const slug = useRoute().params.slug;
 const page = ref(1);
 const ready = ref(false);
-const { data, error, pending } = await useLiteFetch<{ album: Album; pictures: Picture[] }>(`/albums/${id}/pictures`, {
-    query: { count: 12, page },
+
+const { data: album } = await useLiteFetch<Album>(`/albums/${slug}`, {
+    transform: (data: any) => data.album,
 });
 
-if (error.value) throw showError({ statusCode: 404, statusMessage: 'Album Not Found' });
+if (!album.value) throw showError({ statusCode: 404, statusMessage: 'Album Not Found' });
+
+const { data, pending } = await useLiteFetch<{ pictures: Picture[] }>(`/pictures`, {
+    query: { count: 12, page, album: slug },
+});
 
 const list = ref<{ element: HTMLElement } | null>(null);
 
@@ -66,10 +71,10 @@ onUnmounted(stop);
 
 <template>
     <Main>
-        <Section v-if="data" :title="data.album.name" :subtitle="data.album.alias">
+        <Section v-if="album" :title="album.name" :subtitle="album.alias">
             <template #head>
                 <div class="flex flex-wrap gap-2">
-                    <Badge v-for="tag in data.album.tags" :key="tag.id">#{{ tag.slug }}</Badge>
+                    <Badge v-for="tag in album.tags" :key="tag.id">#{{ tag.slug }}</Badge>
                 </div>
             </template>
             <Box>
@@ -95,7 +100,7 @@ onUnmounted(stop);
                     @prev="index--"
                     @next="index++"
                 >
-                    <PictureProgress :total="data.album.picturesCount" :current="index" />
+                    <PictureProgress :total="album.picturesCount" :current="index" />
                 </PictureStory>
             </Transition>
         </Section>

@@ -15,7 +15,7 @@ const tag = props.album.tags[0]?.slug;
 
 <template>
     <li ref="target" class="opacity-0">
-        <Box :is="NuxtLink" :to="`/albums/${album.id}`" class="hover:bg-green/10 transition group">
+        <Box :is="NuxtLink" :to="`/albums/${album.slug}`" class="hover:bg-green/10 transition group">
             <AlbumCover :url="thumb" :tag="tag" :count="album.picturesCount" />
             <AlbumInfo v-bind="{ name: album.name, alias: album.alias }" class="mt-2" />
         </Box>

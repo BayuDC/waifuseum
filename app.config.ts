@@ -11,10 +11,4 @@ export default defineAppConfig({
         height: 640,
     },
     discordUrl: 'https://discord.gg/8sSfCNCXHW',
-    featuredAlbums: [
-        '62bbecc4f7852e29d7c5b923',
-        '62b7e9d1b2a63c625fc3e7f4',
-        '62db96bc485f668eb4e71fa4',
-        '64bfdd6e53d236b652f11997',
-    ],
 });
