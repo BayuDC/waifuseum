@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     },
 
     routeRules: {
+        '/': { isr: 60 * 5 },
         '/dashboard/**': { ssr: false },
     },
 });
