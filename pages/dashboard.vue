@@ -10,6 +10,7 @@ const routes = [
 ];
 
 const route = useRoute();
+const user = useAuth();
 </script>
 
 <template>
@@ -25,12 +26,29 @@ const route = useRoute();
                             <li v-for="r in routes">
                                 <NuxtLink
                                     class="py-1 px-2 transition rounded-md block"
-                                    :class="[route.path == r.dest ? 'bg-green cursor-default' : 'hover:bg-green/20']"
+                                    :class="[
+                                        route.path == r.dest
+                                            ? 'bg-green/100 cursor-default'
+                                            : 'bg-green/10 hover:bg-green/40',
+                                    ]"
                                     :to="r.dest"
                                     >{{ r.text }}</NuxtLink
                                 >
                             </li>
+                            <li>
+                                <NuxtLink
+                                    class="py-1 px-2 transition rounded-md block hover:bg-pink/40 bg-pink/10"
+                                    to="/logout"
+                                    >Logout</NuxtLink
+                                >
+                            </li>
                         </ul>
+                    </Box>
+                    <Box class="mt-4 font-bold">
+                        <p class="font-medium italic">
+                            <span class="text-xs text-black/80">Logged in as</span>
+                            <span class="grid text-2xl truncate">{{ user?.name }}</span>
+                        </p>
                     </Box>
                 </div>
             </div>
