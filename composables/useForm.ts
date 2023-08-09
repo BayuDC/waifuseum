@@ -18,3 +18,26 @@ export default function useForm() {
         },
     };
 }
+export function useFormControl(submit: () => Promise<any>) {
+    const message = reactive({
+        success: '',
+        error: '',
+    });
+    const validations = ref<Record<string, string>>({});
+    const loading = ref(false);
+
+    return {
+        message,
+        validations,
+        loading,
+        async submit() {
+            message.error = '';
+            message.success = '';
+            loading.value = true;
+
+            await submit();
+
+            loading.value = false;
+        },
+    };
+}
