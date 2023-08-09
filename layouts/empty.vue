@@ -1,7 +1,9 @@
 <script lang="ts" setup></script>
 
 <template>
-    <slot />
+    <div>
+        <slot />
+    </div>
 </template>
 
 <style scoped></style>

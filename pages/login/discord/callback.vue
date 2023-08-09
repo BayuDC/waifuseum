@@ -9,7 +9,7 @@ const { data, error } = await useMainFetch('/auth/login/discord', {
 
 if (error.value) throw showErrorSimplify(error);
 
-navigateTo('/dashboard');
+navigateTo('/dashboard/upload');
 </script>
 
 <template>

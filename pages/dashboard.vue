@@ -53,7 +53,7 @@ async function handleLogout() {
                     <Box class="mt-4 font-bold">
                         <p class="font-medium italic">
                             <span class="text-xs text-black/80">Logged in as</span>
-                            <span class="grid text-2xl truncate">{{ user?.name }}</span>
+                            <span v-once class="grid text-2xl truncate">{{ user?.name }}</span>
                         </p>
                     </Box>
                 </div>
