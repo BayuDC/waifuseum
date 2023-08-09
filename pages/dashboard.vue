@@ -11,6 +11,11 @@ const routes = [
 
 const route = useRoute();
 const user = useAuth();
+
+async function handleLogout() {
+    await logout();
+    navigateTo('/');
+}
 </script>
 
 <template>
@@ -36,11 +41,12 @@ const user = useAuth();
                                 >
                             </li>
                             <li>
-                                <NuxtLink
-                                    class="py-1 px-2 transition rounded-md block hover:bg-pink/40 bg-pink/10"
-                                    to="/logout"
-                                    >Logout</NuxtLink
+                                <button
+                                    class="w-full text-left py-1 px-2 transition rounded-md block hover:bg-pink/40 bg-pink/10"
+                                    @click="handleLogout"
                                 >
+                                    Logout
+                                </button>
                             </li>
                         </ul>
                     </Box>
