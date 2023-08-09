@@ -49,8 +49,8 @@ const classes = computed(() => {
             :required="required"
         />
 
-        <Transition name="page">
-            <span v-show="error" class="text-pink text-right font-medium italic text-sm mt-1">{{ error }}</span>
+        <Transition name="blur">
+            <span v-show="error" class="text-pink text-right font-medium italic text-sm">{{ error }}</span>
         </Transition>
     </div>
 </template>

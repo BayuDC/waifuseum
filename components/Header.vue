@@ -14,7 +14,7 @@ const isDashboard = computed(() => {
                     <NuxtLink to="/">Waifuseum</NuxtLink>
                 </h1>
                 <div>
-                    <Transition name="page" mode="out-in">
+                    <Transition name="blur" mode="out-in">
                         <Button v-if="isDashboard" to="/" icon="ic:round-home">Home</Button>
                         <Button v-else to="/dashboard/upload" icon="ic:round-upload">Upload</Button>
                     </Transition>

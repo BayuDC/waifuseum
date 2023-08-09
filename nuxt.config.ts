@@ -9,10 +9,11 @@ export default defineNuxtConfig({
     },
 
     app: {
-        pageTransition: { name: 'page', mode: 'out-in' },
+        pageTransition: { name: 'blur', mode: 'out-in' },
     },
 
     routeRules: {
+        '/': { isr: 60 * 5 },
         '/dashboard/**': { ssr: false },
     },
 });

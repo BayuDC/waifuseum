@@ -14,7 +14,7 @@ const album = computed({
 });
 const suggestion = ref<string | null>(null);
 
-const { data, pending } = useLiteFetch<{ albums: Album[] }>('/albums?simple=true', {
+const { data, pending } = useLiteFetch<{ albums: Album[] }>('/albums/simple', {
     query: { search: album },
     immediate: false,
 });

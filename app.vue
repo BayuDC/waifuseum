@@ -2,10 +2,6 @@
 const appConfig = useAppConfig();
 const nuxtApp = useNuxtApp();
 
-nuxtApp.hook('page:finish', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
 useSeoMeta({
     title: appConfig.name,
     description: appConfig.description,
@@ -41,7 +37,7 @@ useSeoMeta({
             <Link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
             <Link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         </Head>
-        <Body class="bg-white text-black">
+        <Body class="bg-white text-black min-w-[320px]">
             <NuxtLayout>
                 <NuxtLoadingIndicator :height="4" :color="false" class="bg-green" />
                 <NuxtPage />
@@ -51,12 +47,22 @@ useSeoMeta({
 </template>
 
 <style>
-.page-enter-active,
-.page-leave-active {
-    @apply transition duration-300;
+.blur-enter-active,
+.blur-leave-active {
+    @apply transition duration-200;
 }
-.page-enter-from,
-.page-leave-to {
+.blur-enter-from,
+.blur-leave-to {
     @apply opacity-0 blur;
+}
+.slide-enter-active,
+.slide-leave-active {
+    @apply transition duration-200;
+}
+.slide-enter-from {
+    @apply opacity-0 -translate-x-6;
+}
+.slide-leave-to {
+    @apply opacity-0 translate-x-6;
 }
 </style>
