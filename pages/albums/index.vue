@@ -1,14 +1,17 @@
 <script lang="ts" setup>
-definePageMeta({
-    keepalive: true,
-});
-
-const route = useRoute();
+const props = defineProps<{
+    tag?: string;
+}>();
 
 const page = ref(1);
+
 const albums = ref<Album[]>([]);
 const { data, pending, error } = await useLiteFetch<{ tag?: Tag; albums: Album[] }>('/albums', {
-    query: { page, count: 12, tag: route.query.tag },
+    query: { page, count: 12, tag: props.tag },
+});
+const { data: tags } = await useLiteFetch('/tags', {
+    query: { count: 5 },
+    transform: (d: { tags: Tag[] }) => d.tags,
 });
 
 if (error.value) throw showErrorSimplify(error);
@@ -39,23 +42,22 @@ onMounted(() => {
 });
 onUnmounted(stop);
 
-const title = computed(() => {
-    if (data.value?.tag) return data.value.tag.name;
-
-    return 'All Albums';
-});
-const subtitle = computed(() => {
-    if (data.value?.tag) return 'Albums Tagged';
-
-    return;
-});
+const title = data.value?.tag ? data.value.tag.name : 'All Albums';
+const subtitle = data.value?.tag ? 'Albums Tagged' : undefined;
 </script>
 
 <template>
     <Main>
         <Section v-bind="{ title, subtitle }">
+            <template #head v-if="!tag">
+                <ul class="flex flex-wrap gap-x-2">
+                    <li v-for="tag in tags" class="font-medium hover:underline">
+                        <NuxtLink :to="`/albums/@${tag.slug}`">#{{ tag.slug }}</NuxtLink>
+                    </li>
+                </ul>
+            </template>
             <Grid ref="list">
-                <AlbumItem v-for="(album, i) in albums" :key="album.id" :album="album" :tag="data?.tag?.slug" />
+                <AlbumItem v-for="(album, i) in albums" :key="`${album.id}`" :album="album" :tag="data?.tag?.slug" />
             </Grid>
             <template #tail v-if="pending">
                 <Loading />

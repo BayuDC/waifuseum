@@ -49,7 +49,7 @@ const classes = computed(() => {
             :required="required"
         />
 
-        <Transition name="page">
+        <Transition name="blur">
             <span v-show="error" class="text-pink text-right font-medium italic text-sm">{{ error }}</span>
         </Transition>
     </div>

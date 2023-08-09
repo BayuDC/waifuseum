@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     },
 
     app: {
-        pageTransition: { name: 'page', mode: 'out-in' },
+        pageTransition: { name: 'blur', mode: 'out-in' },
     },
 
     routeRules: {

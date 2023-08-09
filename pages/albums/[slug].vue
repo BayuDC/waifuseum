@@ -74,7 +74,7 @@ onUnmounted(stop);
         <Section v-if="album" :title="album.name" :subtitle="album.alias">
             <template #head>
                 <div class="flex flex-wrap gap-2">
-                    <NuxtLink v-for="tag in album.tags" :key="tag.id" :to="'/albums?tag=' + tag.slug">
+                    <NuxtLink v-for="tag in album.tags" :key="tag.id" :to="'/albums/@' + tag.slug">
                         <Badge clickable>#{{ tag.slug }}</Badge>
                     </NuxtLink>
                 </div>
@@ -92,7 +92,7 @@ onUnmounted(stop);
                 <div v-if="!pictures.length" class="font-bold text-2xl text-center text-green">Still nothing here!</div>
                 <Loading v-if="ready && pending" class="mt-6 mb-4" />
             </Box>
-            <Transition name="page">
+            <Transition name="blur">
                 <PictureStory
                     v-if="picture"
                     key="iloveyou"

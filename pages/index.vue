@@ -33,7 +33,7 @@ const picture = today.value?.pictures.length
                 </Grid>
             </Box>
 
-            <Transition name="page">
+            <Transition name="blur">
                 <PictureStory
                     v-if="picture"
                     key="iloveyou"

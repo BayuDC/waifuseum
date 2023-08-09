@@ -24,7 +24,7 @@ const emit = defineEmits<{
 
         <div class="flex items-center justify-end gap-4">
             <div class="grid">
-                <Transition name="page" mode="out-in">
+                <Transition name="blur" mode="out-in">
                     <span v-if="message.error" class="font-semibold text-pink truncate italic">
                         {{ message.error }}
                     </span>

@@ -2,10 +2,6 @@
 const appConfig = useAppConfig();
 const nuxtApp = useNuxtApp();
 
-// nuxtApp.hook('page:finish', () => {
-//     window.scrollTo({ top: 0, behavior: 'smooth' });
-// });
-
 useSeoMeta({
     title: appConfig.name,
     description: appConfig.description,
@@ -51,12 +47,22 @@ useSeoMeta({
 </template>
 
 <style>
-.page-enter-active,
-.page-leave-active {
-    @apply transition duration-300;
+.blur-enter-active,
+.blur-leave-active {
+    @apply transition duration-200;
 }
-.page-enter-from,
-.page-leave-to {
+.blur-enter-from,
+.blur-leave-to {
     @apply opacity-0 blur;
+}
+.slide-enter-active,
+.slide-leave-active {
+    @apply transition duration-200;
+}
+.slide-enter-from {
+    @apply opacity-0 -translate-x-6;
+}
+.slide-leave-to {
+    @apply opacity-0 translate-x-6;
 }
 </style>
