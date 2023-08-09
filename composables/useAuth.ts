@@ -28,3 +28,13 @@ export async function login(): Promise<boolean> {
     auth.value = data.value.user;
     return true;
 }
+
+export async function logout(): Promise<void> {
+    const auth = useAuth();
+
+    await useMainFetch('/auth/logout', {
+        method: 'post',
+    });
+
+    auth.value = null;
+}

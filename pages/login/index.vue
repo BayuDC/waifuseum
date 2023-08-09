@@ -45,10 +45,8 @@ async function onSubmit() {
                         </div>
                     </Form>
                 </Box>
-                <div class="text-center mt-8 font-bold flex flex-wrap justify-center">
-                    <NuxtLink class="hover:underline" to="/login/discord">Login with Discord</NuxtLink>
-                    <span class="mx-2 hidden md:inline">|</span>
-                    <NuxtLink class="hover:underline" to="/login/anonymous">Anonymous login</NuxtLink>
+                <div class="text-center mt-8 font-bold justify-center">
+                    <NuxtLink class="hover:underline text-lg" to="/login/discord">Login with Discord</NuxtLink>
                 </div>
             </Section>
         </Main>

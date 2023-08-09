@@ -5,6 +5,7 @@ export default defineNuxtConfig({
         public: {
             apiLiteUrl: process.env.API_LITE_URL,
             apiMainUrl: process.env.API_MAIN_URL,
+            discordAuthUrl: process.env.DISCORD_AUTH_URL,
         },
     },
 
@@ -15,5 +16,7 @@ export default defineNuxtConfig({
     routeRules: {
         '/': { isr: 60 * 5 },
         '/dashboard/**': { ssr: false },
+        '/login/**': { ssr: false },
+        '/logout': { ssr: false },
     },
 });
