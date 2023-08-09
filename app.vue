@@ -2,9 +2,9 @@
 const appConfig = useAppConfig();
 const nuxtApp = useNuxtApp();
 
-nuxtApp.hook('page:finish', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+// nuxtApp.hook('page:finish', () => {
+//     window.scrollTo({ top: 0, behavior: 'smooth' });
+// });
 
 useSeoMeta({
     title: appConfig.name,

@@ -74,7 +74,9 @@ onUnmounted(stop);
         <Section v-if="album" :title="album.name" :subtitle="album.alias">
             <template #head>
                 <div class="flex flex-wrap gap-2">
-                    <Badge v-for="tag in album.tags" :key="tag.id">#{{ tag.slug }}</Badge>
+                    <NuxtLink v-for="tag in album.tags" :key="tag.id" :to="'/albums?tag=' + tag.slug">
+                        <Badge clickable>#{{ tag.slug }}</Badge>
+                    </NuxtLink>
                 </div>
             </template>
             <Box>

@@ -3,6 +3,7 @@ const NuxtLink = resolveComponent('NuxtLink');
 
 const props = defineProps<{
     album: Album;
+    tag?: string;
 }>();
 
 const target = ref<HTMLElement | null>(null);
@@ -10,7 +11,7 @@ const target = ref<HTMLElement | null>(null);
 usePopMotion(target, { opacity: 0, scale: 0 }, { opacity: 100, scale: 1, transition: { delay: useRandom(300) } });
 
 const thumb = pickRandom(props.album.pictures)?.urls.thumbnail;
-const tag = props.album.tags[0]?.slug;
+const tag = props.tag || props.album.tags[0]?.slug;
 </script>
 
 <template>
