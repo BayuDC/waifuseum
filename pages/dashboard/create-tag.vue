@@ -34,20 +34,20 @@ const stopSync = useSyncSlug(body, 'name', 'slug');
         <Box>
             <Form @submit="onFormSubmit" v-bind="{ loading, message }" button-text="Create">
                 <div class="grid md:grid-cols-2 gap-x-4 gap-y-2 mb-4">
-                    <InputTextPro
+                    <InputText
                         label="Name"
                         class="col-span-2"
                         v-model:value="body.name"
                         v-model:error="validations.name"
                         required
                     />
-                    <InputTextPro
+                    <InputText
                         label="Alias"
                         v-model:value="body.alias"
                         v-model:error="validations.alias"
                         :required="false"
                     />
-                    <InputTextPro
+                    <InputText
                         label="Slug"
                         v-model:value="body.slug"
                         v-model:error="validations.slug"

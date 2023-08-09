@@ -15,17 +15,15 @@ const { data, error, execute } = await useMainFetch<{ message: string }>('/auth/
     watch: false,
     immediate: false,
 });
-const { message, loading, beforeSubmit, afterSubmit } = useForm();
+const { message, loading, submit } = useFormControl(execute);
 
 async function onSubmit() {
     if (loading.value) return;
 
-    beforeSubmit();
-    await execute();
-    afterSubmit();
+    await submit();
 
     if (error.value) {
-        message.error = error.value.data.message;
+        [message.error] = handleFormError(error.value);
     } else {
         message.success = data.value!.message;
         navigateTo('/dashboard/upload', { replace: true });
@@ -39,9 +37,9 @@ async function onSubmit() {
             <Section title="Waifuseum" center-head>
                 <Box>
                     <Form @submit="onSubmit" button-text="Login" v-bind="{ message, loading }">
-                        <div class="flex flex-col gap-1 mb-4">
+                        <div class="flex flex-col gap-2 mb-4">
                             <InputText label="Email" v-model:value="body.email" required />
-                            <InputText label="Password" v-model:value="body.password" required password />
+                            <InputText label="Password" v-model:value="body.password" required type="password" />
                         </div>
                     </Form>
                 </Box>

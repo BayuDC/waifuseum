@@ -12,17 +12,15 @@ const { data, error, execute } = await useMainFetch<{ picture: Picture }>('/pict
     watch: false,
 });
 
-const { message, loading, beforeSubmit, afterSubmit } = useForm();
+const { message, loading, validations, submit } = useFormControl(execute);
 
-async function onSubmit() {
+async function onFormSubmit() {
     if (loading.value) return;
 
-    beforeSubmit();
-    await execute();
-    afterSubmit();
+    await submit();
 
     if (error.value) {
-        message.error = error.value.data.message;
+        [message.error, validations.value] = handleFormError(error.value);
     } else {
         message.success = `Created: ${data.value!.picture.id}`;
     }
@@ -32,17 +30,24 @@ async function onSubmit() {
 <template>
     <Section title="Upload Picture" no-padding>
         <Box>
-            <Form @submit="onSubmit" v-bind="{ message, loading }">
-                <div class="grid md:grid-cols-2 gap-x-3 mb-4">
+            <Form @submit="onFormSubmit" v-bind="{ message, loading }" button-text="Upload">
+                <div class="grid md:grid-cols-2 gap-x-4 gap-y-2 mb-4">
                     <InputText
                         label="File URL"
-                        class="md:col-span-2"
+                        class="col-span-2"
                         v-model:value="body.fileUrl"
-                        :error="error?.data.details.file"
+                        v-model:error="validations.file"
                         required
                     />
-                    <InputAlbum v-model:album="body.album" :error="error?.data.details.album" />
-                    <InputText v-model:value="body.source" :error="error?.data.details.source" label="Source" />
+                    <InputEnum
+                        label="Album"
+                        source="/albums/simple"
+                        source-key="albums"
+                        v-model:value="body.album"
+                        v-model:error="validations.album"
+                        required
+                    />
+                    <InputText label="Source" v-model:value="body.source" v-model:error="validations.source" />
                 </div>
             </Form>
             <div class="flex justify-center items-center relative mt-2">
