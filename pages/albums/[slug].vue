@@ -19,7 +19,7 @@ const source = '/pictures?album=' + album.value!.slug;
         <Section v-if="album" :title="album.name" :subtitle="album.alias">
             <template #head>
                 <div class="flex flex-wrap gap-2">
-                    <NuxtLink v-for="tag in album.tags" :key="tag.id" :to="'/albums/@' + tag.slug">
+                    <NuxtLink v-for="tag in album.tags" :key="tag.id" :to="'/albums/~' + tag.slug">
                         <Badge clickable>#{{ tag.slug }}</Badge>
                     </NuxtLink>
                 </div>
