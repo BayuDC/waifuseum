@@ -19,7 +19,7 @@ const url = computed(() => {
     return '/pictures/pixiv/' + id.value;
 });
 
-const { data, pending, error, execute } = await useLiteFetch<PixivData>(url, {
+const { data, pending, error } = await useLiteFetch<PixivData>(url, {
     immediate: false,
 });
 pending.value = false;
@@ -29,17 +29,24 @@ watch(data, () => {
         emit('resolve', data.value);
     }
 });
+
+const state = computed(() => {
+    if (pending.value) {
+        return 'loading';
+    } else if (error.value) {
+        return 'error';
+    } else if (data.value) {
+        return 'success';
+    } else {
+        return 'default';
+    }
+});
 </script>
 
 <template>
     <div class="relative">
-        <InputText label="Pixiv Id" v-model:value="id" :error="id && error ? ' ' : null" @input.once="execute" />
-
-        <span
-            v-show="pending"
-            class="absolute top-12 right-2 italic font-medium text-black px-2 rounded-md bg-green/100 cursor-pointer"
-            >...</span
-        >
+        <label for="pixiv" class="font-bold text-lg text-black/90 italic">Pixiv Id</label>
+        <InputBase id="pixiv" v-model:value="id" :state="state" />
     </div>
 </template>
 

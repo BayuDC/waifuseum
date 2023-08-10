@@ -2,6 +2,10 @@
 navigateTo('/dashboard/upload');
 </script>
 
-<template></template>
+<template>
+    <Section title="Welcome">
+        <Box>There is nothing here!</Box>
+    </Section>
+</template>
 
 <style scoped></style>

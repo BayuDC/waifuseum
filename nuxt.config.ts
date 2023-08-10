@@ -11,10 +11,12 @@ export default defineNuxtConfig({
 
     app: {
         pageTransition: { name: 'blur', mode: 'out-in' },
+        layoutTransition: { name: 'blur', mode: 'out-in' },
     },
 
     routeRules: {
         '/': { isr: 60 * 5 },
+        '/dashboard': { redirect: '/dashboard/upload' },
         '/dashboard/**': { ssr: false },
         '/login/**': { ssr: false },
         '/logout': { ssr: false },

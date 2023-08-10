@@ -1,57 +1,43 @@
 <script lang="ts" setup>
+defineOptions({ inheritAttrs: false });
 const props = defineProps<{
     label: string;
     value: string;
     error?: string;
     required?: boolean;
-    password?: boolean;
 }>();
 
 const emit = defineEmits<{
-    (e: 'update:value', value: string): void;
+    (e: 'update:error', error: any): void;
 }>();
 
+const { class: classes, ...attrs } = useAttrs();
+
 const id = getRandomId();
-const type = props.password ? 'password' : 'text';
+const state = ref<'default' | 'success' | 'error'>('default');
 
-const value = computed({
-    get() {
-        return props.value;
+watchThrottled(
+    toRef(props, 'value'),
+    () => {
+        state.value = props.value ? 'success' : 'default';
+        if (props.error) emit('update:error', undefined);
     },
-    set(value) {
-        emit('update:value', value);
-    },
-});
+    { throttle: 1000 },
+);
 
-const classes = computed(() => {
-    if (props.error) {
-        return 'border-pink/40 bg-pink/10 outline-pink';
-    } else if (props.value) {
-        return 'border-green/40 bg-green/10 outline-green';
-    } else {
-        return 'border-gray/40 bg-gray/10 outline-gray';
-    }
+watchImmediate(toRef(props, 'error'), () => {
+    if (props.error) state.value = 'error';
 });
 </script>
 
 <template>
-    <div class="flex flex-col py-2">
+    <div class="flex flex-col" :class="[classes]">
         <label :for="id" class="font-bold text-lg text-black/90 italic">
             {{ label }}
             <span class="text-pink" v-show="required">*</span>
         </label>
-        <input
-            :type="type"
-            :id="id"
-            class="border-[4px] font-medium rounded-md p-2 italic"
-            :class="[classes]"
-            v-model="value"
-            :required="required"
-        />
-
-        <Transition name="blur">
-            <span v-show="error" class="text-pink text-right font-medium italic text-sm">{{ error }}</span>
-        </Transition>
+        <InputBase v-bind="{ id, required, ...attrs, state }" :value="value" />
+        <span v-show="error" class="text-pink text-right font-medium italic text-sm">{{ error }}</span>
     </div>
 </template>
 
