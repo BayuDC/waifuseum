@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+definePageMeta({
+    middleware: ['auth-silent'],
+});
+
 const { data: recent } = await useLiteFetch<{ albums: Album[] }>('/albums/recent?count=12');
 const { data: today } = await useLiteFetch<{ pictures: Picture[]; picturesCount: number }>('/pictures/today?count=12');
 </script>

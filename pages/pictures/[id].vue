@@ -1,4 +1,8 @@
 <script lang="tsx" setup>
+definePageMeta({
+    middleware: ['auth-silent'],
+});
+
 const id = useRoute().params.id;
 
 const { data: picture, error } = await useLiteFetch<Picture>(`/pictures/${id}`, {

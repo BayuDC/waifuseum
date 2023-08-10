@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+definePageMeta({
+    middleware: ['auth-silent'],
+});
+
 const props = defineProps<{
     tag?: string;
 }>();

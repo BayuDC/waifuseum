@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+definePageMeta({
+    middleware: ['auth-silent'],
+});
+
 const { data: picturesCount } = await useLiteFetch<number>(`/pictures/today`, {
     transform: (d: any) => d.picturesCount,
     query: { count: 1 },

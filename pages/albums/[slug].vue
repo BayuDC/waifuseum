@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+definePageMeta({
+    middleware: ['auth-silent'],
+});
+
 const slug = useRoute().params.slug;
 
 const { data: album, error } = await useLiteFetch<Album>(`/albums/${slug}`, {
