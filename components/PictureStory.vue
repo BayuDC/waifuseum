@@ -72,15 +72,18 @@ const NavButton = defineComponent(
         </div>
         <div class="bg-gradient-to-b from-black/60 to-black/0 absolute top-0 w-full pb-16">
             <Container class="h-full p-5 md:px-10 md:py-5">
-                <Button icon="ic:close" class="ml-auto hidden md:flex" @click="emit('close')">Close</Button>
+                <Button icon="ic:round-cancel" class="ml-auto hidden md:flex" @click="emit('close')">Close</Button>
             </Container>
         </div>
         <div class="bg-gradient-to-t from-black/60 to-black/0 absolute bottom-0 w-full pt-16">
             <Container class="h-full p-5 md:px-10 md:py-5 flex items-center gap-2">
                 <p class="text-white font-medium mr-auto hidden md:inline">Uploaded at {{ date }}</p>
-                <Button icon="ic:round-open-in-new" :to="picture.source" target="”_blank”">Source</Button>
+                <Button icon="ic:round-info" :to="`/pictures/${picture.id}`" target="”_blank”">Detail</Button>
+                <Button icon="ic:round-file-open" v-if="picture.source" :to="picture.source" target="”_blank”"
+                    >Source</Button
+                >
                 <Button icon="ic:round-download" :to="picture.url" download target="_blank">Download</Button>
-                <Button icon="ic:close" class="ml-auto md:hidden" @click="emit('close')">Close</Button>
+                <Button icon="ic:round-cancel" class="ml-auto md:hidden" @click="emit('close')">Close</Button>
             </Container>
         </div>
         <slot />

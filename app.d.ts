@@ -24,6 +24,7 @@ declare global {
         };
         album?: Album;
         source: string;
+        createdBy: user;
         createdAt: string;
         updatedAt: string;
     }
