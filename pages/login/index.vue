@@ -4,6 +4,8 @@ definePageMeta({
     middleware: ['auth-guest'],
 });
 
+const redirectUrl = useRoute().query.redirect as string;
+
 const body = reactive({
     email: '',
     password: '',
@@ -26,8 +28,13 @@ async function onSubmit() {
         [message.error] = handleFormError(error.value);
     } else {
         message.success = data.value!.message;
-        navigateTo('/dashboard/upload', { replace: true });
+
+        navigateTo(redirectUrl || '/', { replace: true });
     }
+}
+
+function onDiscordLogin() {
+    useCookie('auth_redirect', { maxAge: 5 * 60 }).value = redirectUrl;
 }
 </script>
 
@@ -44,7 +51,9 @@ async function onSubmit() {
                     </Form>
                 </Box>
                 <div class="text-center mt-8 font-bold justify-center">
-                    <NuxtLink class="hover:underline text-lg" to="/login/discord">Login with Discord</NuxtLink>
+                    <NuxtLink class="hover:underline text-lg" to="/login/discord" @click="onDiscordLogin"
+                        >Login with Discord</NuxtLink
+                    >
                 </div>
             </Section>
         </Main>
