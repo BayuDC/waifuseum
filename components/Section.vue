@@ -15,7 +15,7 @@ const slots = useSlots();
             <Transition name="slide" mode="out-in">
                 <div v-if="title" :key="title" class="md:mb-8 mb-4" :class="{ 'text-center': centerHead }">
                     <p v-if="subtitle" class="text-xl md:text-2xl font-bold italic text-black/90">{{ subtitle }}</p>
-                    <h1 class="text-4xl md:text-6xl font-bold italic text-black/90">{{ title }}</h1>
+                    <h1 class="text-5xl md:text-6xl font-bold italic text-black/90">{{ title }}</h1>
 
                     <div v-if="slots.head" class="mt-2">
                         <slot name="head" />

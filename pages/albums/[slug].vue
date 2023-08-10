@@ -1,72 +1,13 @@
 <script lang="ts" setup>
 const slug = useRoute().params.slug;
-const page = ref(1);
-const ready = ref(false);
 
-const { data: album } = await useLiteFetch<Album>(`/albums/${slug}`, {
-    transform: (data: any) => data.album,
+const { data: album, error } = await useLiteFetch<Album>(`/albums/${slug}`, {
+    transform: (d: any) => d.album,
 });
 
-if (!album.value) throw showError({ statusCode: 404, statusMessage: 'Album Not Found' });
+if (error.value) throw showErrorSimplify(error);
 
-const { data, pending } = await useLiteFetch<{ pictures: Picture[] }>(`/pictures`, {
-    query: { count: 12, page, album: slug },
-});
-
-const list = ref<{ element: HTMLElement } | null>(null);
-
-const index = ref(-1);
-
-const pictures = ref<Picture[]>([]);
-const picture = computed<Picture | null>(() => {
-    if (index.value < 0 || index.value >= pictures.value.length) return null;
-    return pictures.value[index.value];
-});
-
-watchOnce(data, () => {
-    ready.value = true;
-});
-
-watchImmediate(data, () => {
-    if (!data.value) return;
-    pictures.value = [...pictures.value, ...data.value!.pictures];
-});
-
-watch(pictures, () => {
-    nextTick(() => {
-        setup(list.value!.element);
-    });
-});
-
-const {
-    pause,
-    resume,
-    stop: unwatch,
-} = watchPausable(index, () => {
-    if (pictures.value.length - index.value < 5) {
-        page.value++;
-    }
-});
-
-watch(pending, () => {
-    pending.value ? pause() : resume();
-});
-
-const { setup, stop } = useInfinite(() => {
-    page.value++;
-});
-
-until(data)
-    .toMatch((v) => !v?.pictures.length)
-    .then(() => {
-        unwatch();
-        stop();
-    });
-
-onMounted(() => {
-    setup(list.value!.element);
-});
-onUnmounted(stop);
+const source = '/pictures?album=' + album.value!.slug;
 </script>
 
 <template>
@@ -79,33 +20,10 @@ onUnmounted(stop);
                     </NuxtLink>
                 </div>
             </template>
-            <Box>
-                <Grid ref="list">
-                    <PictureItem
-                        v-for="(picture, i) in pictures"
-                        :key="picture.id"
-                        :picture="picture"
-                        @click="index = i"
-                        show-date
-                    />
-                </Grid>
-                <div v-if="!pictures.length" class="font-bold text-2xl text-center text-green">Still nothing here!</div>
-                <Loading v-if="ready && pending" class="mt-6 mb-4" />
-            </Box>
-            <Transition name="blur">
-                <PictureStory
-                    v-if="picture"
-                    key="iloveyou"
-                    :picture="picture"
-                    :show-prev="index > 0"
-                    :show-next="index < pictures.length - 1"
-                    @close="index = -1"
-                    @prev="index--"
-                    @next="index++"
-                >
-                    <PictureProgress :total="album.picturesCount" :current="index" />
-                </PictureStory>
-            </Transition>
+
+            <PictureInfinite v-bind="{ source }" v-slot="props" :pictures-count="album.picturesCount">
+                <PictureItem v-bind="props" show-date />
+            </PictureInfinite>
         </Section>
     </Main>
 </template>
