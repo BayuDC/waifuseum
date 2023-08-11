@@ -1,4 +1,4 @@
-<script lang="tsx" setup>
+<script lang="ts" setup>
 definePageMeta({
     middleware: ['auth-silent'],
 });
@@ -12,34 +12,70 @@ const { data: picture, error } = await useLiteFetch<Picture>(`/pictures/${id}`, 
 
 if (!picture.value) throw showErrorSimplify(error);
 
-const showTools = ref(true);
+// TODO move in future
 
-const deleteMode = ref(false);
+const showTools = ref(true);
+const mode = ref<'delete' | 'update' | 'idle'>('idle');
+
+const deleteConfirm = ref(false);
 const deleteMessage = ref('');
 const deleteFetch = useMainFetch(`/pictures/${id}`, {
     key: 'picture-delete',
     method: 'delete',
     immediate: false,
 });
-async function onDelete() {
+async function onDeleteConfirm() {
     showTools.value = false;
     deleteMessage.value = 'Deleting...';
+    mode.value = 'delete';
 
     await deleteFetch.execute();
     if (deleteFetch.error.value) {
         deleteMessage.value = 'Delete Failed';
         setTimeout(() => {
             deleteMessage.value = '';
-            deleteMode.value = false;
+            deleteConfirm.value = false;
             showTools.value = true;
+            mode.value = 'idle';
         }, 3000);
     } else {
         deleteMessage.value = 'Deleted';
     }
 }
+function onDelete() {
+    deleteConfirm.value = true;
+    setTimeout(() => {
+        deleteConfirm.value = false;
+    }, 6000);
+}
 
-const updateMode = ref(false);
-function onUpdate() {}
+const updateBody = reactive({ source: '' });
+const updateMessage = ref('');
+const updateOpen = ref(false);
+const updateLoading = ref(false);
+const updateFetch = useMainFetch(`/pictures/${id}`, {
+    key: 'picture-update',
+    method: 'put',
+    immediate: false,
+    body: updateBody,
+    watch: false,
+});
+
+async function onUpdate() {
+    if (updateLoading.value) return;
+
+    updateLoading.value = true;
+    await updateFetch.execute();
+    updateLoading.value = false;
+
+    if (updateFetch.error.value) {
+        updateMessage.value = updateFetch.error.value.data.details.source;
+    } else {
+        picture.value!.source = updateBody.source;
+        updateBody.source = '';
+        updateOpen.value = false;
+    }
+}
 </script>
 
 <template>
@@ -69,7 +105,7 @@ function onUpdate() {}
                             />
                         </ul>
                         <Transition name="blur">
-                            <BoxOverlay v-if="deleteMessage" :class="{ 'bg-pink/60': deleteMode }">
+                            <BoxOverlay v-if="deleteMessage" class="bg-pink/40">
                                 {{ deleteMessage }}
                             </BoxOverlay>
                         </Transition>
@@ -81,18 +117,28 @@ function onUpdate() {}
                             v-if="user && showTools && user.id == picture.createdBy.id"
                         >
                             <Transition name="blur" mode="out-in">
-                                <Box v-if="updateMode" class="w-full">
-                                    <InputText label="Source" button="Save" />
+                                <Box v-if="updateOpen" class="w-full">
+                                    <InputText
+                                        label="Source"
+                                        button="Save"
+                                        v-model:value="updateBody.source"
+                                        v-model:error="updateMessage"
+                                        @button-click="onUpdate"
+                                        @keydown.enter="onUpdate"
+                                        required
+                                    />
                                 </Box>
-                                <Button v-else @click="updateMode = true" icon="ic:round-edit">Update Source</Button>
+                                <Button v-else @click="updateOpen = true" icon="ic:round-edit">Update Source</Button>
                             </Transition>
                             <Transition name="blur" mode="out-in">
-                                <Button v-if="deleteMode" @click="onDelete" icon="ic:round-delete-forever" danger
+                                <Button
+                                    v-if="deleteConfirm"
+                                    @click="onDeleteConfirm"
+                                    icon="ic:round-delete-forever"
+                                    danger
                                     >Are you sure?</Button
                                 >
-                                <Button v-else @click="deleteMode = true" icon="ic:round-delete" danger
-                                    >Delete This</Button
-                                >
+                                <Button v-else @click="onDelete" icon="ic:round-delete" danger>Delete This</Button>
                             </Transition>
                         </div>
                     </Transition>
