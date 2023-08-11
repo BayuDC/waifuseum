@@ -33,9 +33,11 @@ const emit = defineEmits<{
                     </span>
                 </Transition>
             </div>
-            <Button :icon="loading ? 'line-md:loading-twotone-loop' : ''" ignore-hide-text>
-                {{ buttonText }}
-            </Button>
+            <slot name="button">
+                <Button :icon="loading ? 'line-md:loading-twotone-loop' : ''" ignore-hide-text>
+                    {{ buttonText }}
+                </Button>
+            </slot>
         </div>
     </form>
 </template>

@@ -9,16 +9,11 @@ interface PixivData {
         original: string;
     };
 }
-const props = defineProps<{
-    id: string;
-}>();
-const emit = defineEmits<{
-    (e: 'update:id', id: string): void;
-    (e: 'resolve', data: PixivData): void;
-}>();
+
+const { body: pictureBody } = usePictureState();
 
 const url = computed(() => {
-    return '/pictures/pixiv/' + props.id;
+    return '/pictures/pixiv/' + pictureBody.value.pixivId;
 });
 
 const { data, pending, error } = await useLiteFetch<PixivData>(url, {
@@ -28,7 +23,8 @@ pending.value = false;
 
 watch(data, () => {
     if (data.value) {
-        emit('resolve', data.value);
+        pictureBody.value.source = data.value.source;
+        pictureBody.value.fileUrl = data.value.urls.original;
     }
 });
 
@@ -46,9 +42,13 @@ const state = computed(() => {
 </script>
 
 <template>
+    <div class="flex justify-center items-center relative mt-2">
+        <div class="relative bg-[#ffffff] z-10 p-2 font-bold text-black/60 text-sm">or import from Pixiv</div>
+        <div class="absolute bg-black/40 w-full h-1"></div>
+    </div>
     <div class="relative">
         <label for="pixiv" class="font-bold text-lg text-black/90 italic">Pixiv Id</label>
-        <InputBase id="pixiv" :value="id" @update:value="(v: string) => emit('update:id', v)" :state="state" />
+        <InputBase id="pixiv" v-model:value="pictureBody.pixivId" :state="state" />
     </div>
 </template>
 
