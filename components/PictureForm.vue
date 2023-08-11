@@ -1,6 +1,10 @@
 <script lang="ts" setup>
-const { body: pictureBody, file: pictureFile } = usePictureState();
-onUnmounted(() => clearNuxtState(['picture-body', 'picture-file']));
+const emit = defineEmits<{
+    (e: 'uploaded', picture: Picture): void;
+}>();
+
+const { body: pictureBody, file: pictureFile, control: pictureControl } = usePictureState();
+onUnmounted(resetPictureState);
 
 const body = ref<Record<string, any> | FormData>({});
 
@@ -18,7 +22,7 @@ const { ignoreUpdates } = watchIgnorable(
     () => pictureBody.value.fileUrl,
     () => pictureFile.value && (pictureFile.value = null),
 );
-watch(pictureFile, () => {
+watchImmediate(pictureFile, () => {
     if (!pictureFile.value) return;
     ignoreUpdates(() => {
         pictureBody.value.fileUrl = pictureFile.value!.name;
@@ -56,6 +60,9 @@ async function onFormSubmit() {
         [message.error, validations.value] = handleFormError(error.value);
     } else {
         message.success = `Created: ${data.value!.picture.id}`;
+        if (pictureControl.value.callback) {
+            pictureControl.value.callback(data.value!.picture);
+        }
     }
 }
 </script>

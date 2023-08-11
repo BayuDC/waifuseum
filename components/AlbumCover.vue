@@ -8,7 +8,7 @@ const props = defineProps<{
 
 <template>
     <div class="relative">
-        <PictureThumb :url="url" />
+        <PictureThumb :key="url" :url="url" />
         <Badge
             v-if="tag"
             class="absolute origin-top-left -rotate-90 -left-0.5 -bottom-0.5 group-hover:-translate-x-0.5 group-hover:-bottom-1 translate-y-full transition-[transform,bottom]"

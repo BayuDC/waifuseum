@@ -41,9 +41,9 @@ onUnmounted(stop);
 
 <template>
     <Grid ref="list">
-        <template v-for="(album, i) in albums" :key="`${album.id}`">
-            <slot :album="album" />
-        </template>
+        <AlbumList :albums="albums" v-slot="props">
+            <slot v-bind="props" />
+        </AlbumList>
     </Grid>
     <div v-if="!albums.length" class="font-bold text-2xl text-center text-green">Still nothing here!</div>
     <Loading v-if="pending" class="mt-8" />

@@ -31,7 +31,9 @@ const { data: today } = await useLiteFetch<{ pictures: Picture[]; picturesCount:
         </Section>
         <Section title="Recent Albums">
             <Grid>
-                <AlbumItem v-for="(album, i) in recent?.albums" :key="album.id" :album="album" />
+                <AlbumList :albums="recent?.albums || []" v-slot="props">
+                    <AlbumItem v-bind="props" />
+                </AlbumList>
             </Grid>
             <template #tail>
                 <div class="flex justify-end">

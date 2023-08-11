@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+const props = defineProps<{
+    noUi?: boolean;
+}>();
+
 interface PixivData {
     source: string;
     urls: {
@@ -42,14 +46,16 @@ const state = computed(() => {
 </script>
 
 <template>
-    <div class="flex justify-center items-center relative mt-2">
-        <div class="relative bg-[#ffffff] z-10 p-2 font-bold text-black/60 text-sm">or import from Pixiv</div>
-        <div class="absolute bg-black/40 w-full h-1"></div>
-    </div>
-    <div class="relative">
-        <label for="pixiv" class="font-bold text-lg text-black/90 italic">Pixiv Id</label>
-        <InputBase id="pixiv" v-model:value="pictureBody.pixivId" :state="state" />
-    </div>
+    <template v-if="!noUi">
+        <div class="flex justify-center items-center relative mt-2">
+            <div class="relative bg-[#ffffff] z-10 p-2 font-bold text-black/60 text-sm">or import from Pixiv</div>
+            <div class="absolute bg-black/40 w-full h-1"></div>
+        </div>
+        <div class="relative">
+            <label for="pixiv" class="font-bold text-lg text-black/90 italic">Pixiv Id</label>
+            <InputBase id="pixiv" v-model:value="pictureBody.pixivId" :state="state" />
+        </div>
+    </template>
 </template>
 
 <style scoped></style>
