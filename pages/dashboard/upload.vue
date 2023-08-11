@@ -4,6 +4,7 @@ const body = ref<Record<string, any> | FormData>({});
 const fileDecoy = ref('');
 const album = ref('');
 const source = ref('');
+const pixivId = ref('');
 
 const file = ref<File | null>(null);
 const dropZone = ref<HTMLDivElement | null>(null);
@@ -57,11 +58,17 @@ function chooseFile(files: FileList | File[] | null) {
         file.value = files[0];
     });
 }
+function onTextDrop(e: DragEvent) {
+    const text = e.dataTransfer?.getData('Text');
+    if (!text || !text.match(/^(https?:\/\/www\.)?pixiv\.net\/en\/artworks\/[0-9]+$/)) return;
+
+    pixivId.value = text.replace(/^(https?:\/\/www\.)?pixiv\.net\/en\/artworks\//, '');
+}
 </script>
 
 <template>
     <Section title="Upload Picture" no-padding>
-        <div ref="dropZone">
+        <div ref="dropZone" @drop="onTextDrop">
             <Box class="relative overflow-hidden">
                 <Form @submit="onFormSubmit" v-bind="{ message, loading }" button-text="Upload">
                     <div class="grid md:grid-cols-2 gap-x-4 gap-y-2 mb-4">
@@ -92,6 +99,7 @@ function chooseFile(files: FileList | File[] | null) {
                     <div class="absolute bg-black/40 w-full h-1"></div>
                 </div>
                 <InputPixiv
+                    v-model:id="pixivId"
                     @resolve="
                         (data: any) => {
                             source = data.source;

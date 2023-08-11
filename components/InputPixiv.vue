@@ -9,14 +9,16 @@ interface PixivData {
         original: string;
     };
 }
-
+const props = defineProps<{
+    id: string;
+}>();
 const emit = defineEmits<{
+    (e: 'update:id', id: string): void;
     (e: 'resolve', data: PixivData): void;
 }>();
 
-const id = ref('');
 const url = computed(() => {
-    return '/pictures/pixiv/' + id.value;
+    return '/pictures/pixiv/' + props.id;
 });
 
 const { data, pending, error } = await useLiteFetch<PixivData>(url, {
@@ -46,7 +48,7 @@ const state = computed(() => {
 <template>
     <div class="relative">
         <label for="pixiv" class="font-bold text-lg text-black/90 italic">Pixiv Id</label>
-        <InputBase id="pixiv" v-model:value="id" :state="state" />
+        <InputBase id="pixiv" :value="id" @update:value="(v: string) => emit('update:id', v)" :state="state" />
     </div>
 </template>
 
