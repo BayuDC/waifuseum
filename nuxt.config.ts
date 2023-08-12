@@ -20,5 +20,6 @@ export default defineNuxtConfig({
         '/dashboard/**': { ssr: false },
         '/login/**': { ssr: false },
         '/logout': { ssr: false },
+        '/guide': { static: true },
     },
 });
