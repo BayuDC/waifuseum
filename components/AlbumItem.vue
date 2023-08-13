@@ -7,7 +7,6 @@ const props = defineProps<{
 }>();
 
 const target = ref<HTMLElement | null>(null);
-const route = useRoute();
 
 usePopMotion(target, { opacity: 0, scale: 0 }, { opacity: 100, scale: 1, transition: { delay: useRandom(300) } });
 
@@ -17,10 +16,6 @@ const tag = props.tag || props.album.tags[0]?.slug;
 const { body: pictureBody, control: pictureControl } = usePictureState();
 
 function onDrop() {
-    if (!isAuth()) {
-        return navigateTo('/login?redirect=' + route.fullPath);
-    }
-
     pictureBody.value.album = props.album.slug;
     pictureControl.value.open = true;
     pictureControl.value.callback = (p) => {
