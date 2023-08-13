@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue';
+
 definePageMeta({
     layout: 'empty',
     middleware: ['auth-guest'],
@@ -40,7 +42,7 @@ function onDiscordLogin() {
 
 <template>
     <div class="max-w-screen-sm mx-auto">
-        <Main>
+        <Main class="min-h-screen flex justify-center">
             <Section title="Waifuseum" center-head>
                 <Box>
                     <Form @submit="onSubmit" button-text="Login" v-bind="{ message, loading }">
@@ -50,11 +52,15 @@ function onDiscordLogin() {
                         </div>
                     </Form>
                 </Box>
-                <div class="text-center mt-8 font-bold justify-center">
-                    <NuxtLink class="hover:underline text-lg" to="/login/discord" @click="onDiscordLogin"
-                        >Login with Discord</NuxtLink
-                    >
-                </div>
+
+                <NuxtLink
+                    class="font-bold text-white p-4 rounded-md flex justify-between transition bg-[#5865F2] mt-8 w-full"
+                    @click="onDiscordLogin"
+                    to="/login/discord"
+                >
+                    <span>Login with Discord</span>
+                    <Icon icon="ic:round-discord" :width="24" :height="24" />
+                </NuxtLink>
             </Section>
         </Main>
     </div>
